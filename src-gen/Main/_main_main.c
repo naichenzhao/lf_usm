@@ -68,8 +68,8 @@ void _main_mainreaction_function_1(void* instance_args) {
     motors.target_pos_width = self->_lf_motors.target_pos_width;
     #line 86 "/Users/naichenzhao/Desktop/BML/lf_usm/src/Main.lf"
     for (int i=0; i<6; i++) {
-    lf_set(motors.target_pos[i], target_pos[i]);
-        }
+      lf_set(motors.target_pos[i], target_pos[i]);  
+    }
 #line 74 "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_main_main.c"
 }
 #include "include/api/reaction_macros_undef.h"
@@ -165,11 +165,11 @@ void _main_mainreaction_function_5(void* instance_args) {
     if (self->count == 0) {
       self->count = 1;
       // lf_set(motors.target_pos[0], 50);
-      lf_set(motors.target_speed[0], 0);
+      target_pos[0] = 0;
     } else {
       self->count = 0;
       // lf_set(motors.target_pos[0], 0);
-      lf_set(motors.target_speed[0], 50);
+      target_pos[0] = 4;
     }
     
     

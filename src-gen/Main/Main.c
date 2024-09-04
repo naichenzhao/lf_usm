@@ -105,7 +105,7 @@ void _lf_initialize_trigger_objects() {
     main_main_self[0]->_lf__motor_update.mode = NULL;
     // Initiaizing timer Main.switch_motor.
     main_main_self[0]->_lf__switch_motor.offset = MSEC(5);
-    main_main_self[0]->_lf__switch_motor.period = MSEC(1500);
+    main_main_self[0]->_lf__switch_motor.period = MSEC(8000);
     // Associate timer with the environment of its parent
     envs[main_main].timer_triggers[timer_triggers_count[main_main]++] = &main_main_self[0]->_lf__switch_motor;
     main_main_self[0]->_lf__switch_motor.mode = NULL;
@@ -2236,13 +2236,13 @@ void _lf_initialize_trigger_objects() {
         {
         
             // For reference counting, set num_destinations for port Main.qdec.qdec_out.
-            // Iterate over range Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)].
+            // Iterate over range Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)].
             {
                 int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
                 int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
                 int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
                 int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                main_qdec_self[src_runtime]->_lf_qdec_out[src_channel]._base.num_destinations = 3;
+                main_qdec_self[src_runtime]->_lf_qdec_out[src_channel]._base.num_destinations = 4;
                 main_qdec_self[src_runtime]->_lf_qdec_out[src_channel]._base.source_reactor = (self_base_t*)main_qdec_self[src_runtime];
             }
             // For reference counting, set num_destinations for port Main.qdec.qdec_out.
@@ -2341,19 +2341,19 @@ void _lf_initialize_trigger_objects() {
             }
             {
                 int triggers_index[1] = { 0 }; // Number of bank members with the reaction.
-                // Iterate over range Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)].
+                // Iterate over range Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)].
                 {
                     int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
                     int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
                     int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
                     int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                    // Reaction 2 of Main.qdec triggers 3 downstream reactions
+                    // Reaction 2 of Main.qdec triggers 4 downstream reactions
                     // through port Main.qdec.qdec_out.
-                    main_qdec_self[src_runtime]->_lf__reaction_2.triggered_sizes[triggers_index[src_runtime]] = 3;
+                    main_qdec_self[src_runtime]->_lf__reaction_2.triggered_sizes[triggers_index[src_runtime]] = 4;
                     // For reaction 2 of Main.qdec, allocate an
                     // array of trigger pointers for downstream reactions through port Main.qdec.qdec_out
                     trigger_t** trigger_array = (trigger_t**)lf_allocate(
-                            3, sizeof(trigger_t*),
+                            4, sizeof(trigger_t*),
                             &main_qdec_self[src_runtime]->base.allocations); 
                     main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime]++] = trigger_array;
                 }
@@ -2500,7 +2500,7 @@ void _lf_initialize_trigger_objects() {
                     }
                 }
                 for (int i = 0; i < 1; i++) triggers_index[i] = 0;
-                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.force_control.current_pos(0,1).
+                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.current_pos(0,1).
                 {
                     int src_runtime = 0; // Runtime index.
                     SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -2508,17 +2508,17 @@ void _lf_initialize_trigger_objects() {
                     SUPPRESS_UNUSED_WARNING(src_channel);
                     int src_bank = 0; // Bank index.
                     SUPPRESS_UNUSED_WARNING(src_bank);
-                    // Iterate over range Main.motors.control_x.force_control.current_pos(0,1).
+                    // Iterate over range Main.motors.control_x.current_pos(0,1).
                     {
                         int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
                         int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
                         int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
                         int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                        // Point to destination port Main.motors.control_x.force_control.current_pos's trigger struct.
-                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_control_x_force_control_self[dst_runtime]->_lf__current_pos;
+                        // Point to destination port Main.motors.control_x.current_pos's trigger struct.
+                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_control_x_self[dst_runtime]->_lf__current_pos;
                     }
                 }
-                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.pos_control.current_pos(0,1).
+                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.pos_control.current_pos(0,1).
                 {
                     int src_runtime = 0; // Runtime index.
                     SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -2536,7 +2536,25 @@ void _lf_initialize_trigger_objects() {
                         main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][1] = &main_motors_control_x_pos_control_self[dst_runtime]->_lf__current_pos;
                     }
                 }
-                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.home.current_pos(0,1).
+                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.force_control.current_pos(0,1).
+                {
+                    int src_runtime = 0; // Runtime index.
+                    SUPPRESS_UNUSED_WARNING(src_runtime);
+                    int src_channel = 0; // Channel index.
+                    SUPPRESS_UNUSED_WARNING(src_channel);
+                    int src_bank = 0; // Bank index.
+                    SUPPRESS_UNUSED_WARNING(src_bank);
+                    // Iterate over range Main.motors.control_x.force_control.current_pos(0,1).
+                    {
+                        int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
+                        int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
+                        int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
+                        int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
+                        // Point to destination port Main.motors.control_x.force_control.current_pos's trigger struct.
+                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][2] = &main_motors_control_x_force_control_self[dst_runtime]->_lf__current_pos;
+                    }
+                }
+                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.home.current_pos(0,1).
                 {
                     int src_runtime = 0; // Runtime index.
                     SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -2551,7 +2569,7 @@ void _lf_initialize_trigger_objects() {
                         int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
                         int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
                         // Point to destination port Main.home.current_pos's trigger struct.
-                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][2] = &main_home_self[dst_runtime]->_lf__current_pos;
+                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][3] = &main_home_self[dst_runtime]->_lf__current_pos;
                     }
                 }
                 // Iterate over ranges Main.qdec.qdec_out(1,1)->[Main.motors.control_y.force_control.current_pos(0,1), Main.motors.control_y.pos_control.current_pos(0,1), Main.home.current_pos(1,1)] and Main.motors.control_y.force_control.current_pos(0,1).
@@ -3964,8 +3982,8 @@ void _lf_initialize_trigger_objects() {
             main_qdec_self[dst_runtime]->_lf_reset_qdec = (_qdec_reset_qdec_t*)&main_main_self[src_runtime]->_lf_qdec.reset_qdec;
         }
     }
-    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.force_control.current_pos(0,1)
-    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.force_control.current_pos(0,1).
+    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.current_pos(0,1)
+    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.current_pos(0,1).
     {
         int src_runtime = 0; // Runtime index.
         SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -3973,17 +3991,17 @@ void _lf_initialize_trigger_objects() {
         SUPPRESS_UNUSED_WARNING(src_channel);
         int src_bank = 0; // Bank index.
         SUPPRESS_UNUSED_WARNING(src_bank);
-        // Iterate over range Main.motors.control_x.force_control.current_pos(0,1).
+        // Iterate over range Main.motors.control_x.current_pos(0,1).
         {
             int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
             int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
             int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
             int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_force_control_self[dst_runtime]->_lf_current_pos = (_ffb_controller_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
+            main_motors_control_x_self[dst_runtime]->_lf_current_pos = (_sea_controllerx_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
         }
     }
-    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.pos_control.current_pos(0,1)
-    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.pos_control.current_pos(0,1).
+    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.pos_control.current_pos(0,1)
+    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.pos_control.current_pos(0,1).
     {
         int src_runtime = 0; // Runtime index.
         SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -4000,8 +4018,26 @@ void _lf_initialize_trigger_objects() {
             main_motors_control_x_pos_control_self[dst_runtime]->_lf_current_pos = (_pid_controller_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
         }
     }
-    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.home.current_pos(0,1)
-    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.force_control.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.home.current_pos(0,1).
+    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.force_control.current_pos(0,1)
+    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.force_control.current_pos(0,1).
+    {
+        int src_runtime = 0; // Runtime index.
+        SUPPRESS_UNUSED_WARNING(src_runtime);
+        int src_channel = 0; // Channel index.
+        SUPPRESS_UNUSED_WARNING(src_channel);
+        int src_bank = 0; // Bank index.
+        SUPPRESS_UNUSED_WARNING(src_bank);
+        // Iterate over range Main.motors.control_x.force_control.current_pos(0,1).
+        {
+            int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
+            int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
+            int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
+            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
+            main_motors_control_x_force_control_self[dst_runtime]->_lf_current_pos = (_ffb_controller_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
+        }
+    }
+    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.home.current_pos(0,1)
+    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.home.current_pos(0,1).
     {
         int src_runtime = 0; // Runtime index.
         SUPPRESS_UNUSED_WARNING(src_runtime);

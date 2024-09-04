@@ -51,9 +51,11 @@ reactor SEA_ControllerX(
   sea_pos -> pos_control.sea_pos
   target_pos -> pos_control.target_pos
 
-  reaction(sea_pos, target_pos) {=
+  reaction(sea_pos, target_pos, current_pos) {=
     float D_LIM = 0.014;      // Force difference limit
     float TRANS_CYCLES = 100;  // Number of cycles we stay in thetransient state
+
+    // printf("target_pos: %d %d\n\r", (int) target_pos->value, (int) current_pos->value);
 
 
     float sea_diff = (sea_pos->value - self->last_sea);

@@ -11,9 +11,13 @@ void _sea_controllerxreaction_function_0(void* instance_args) {
     int sea_pos_width = self->_lf_sea_pos_width; SUPPRESS_UNUSED_WARNING(sea_pos_width);
     _sea_controllerx_target_pos_t* target_pos = self->_lf_target_pos;
     int target_pos_width = self->_lf_target_pos_width; SUPPRESS_UNUSED_WARNING(target_pos_width);
+    _sea_controllerx_current_pos_t* current_pos = self->_lf_current_pos;
+    int current_pos_width = self->_lf_current_pos_width; SUPPRESS_UNUSED_WARNING(current_pos_width);
     #line 55 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Joint_Controllers/SEA_X.lf"
     float D_LIM = 0.014;      // Force difference limit
     float TRANS_CYCLES = 100;  // Number of cycles we stay in thetransient state
+    
+    // printf("target_pos: %d %d\n\r", (int) target_pos->value, (int) current_pos->value);
     
     
     float sea_diff = (sea_pos->value - self->last_sea);
@@ -52,7 +56,7 @@ void _sea_controllerxreaction_function_0(void* instance_args) {
       }
     }
     self->last_target = target_pos->value;
-#line 56 "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c"
+#line 60 "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c"
 }
 #include "include/api/reaction_macros_undef.h"
 #include "include/api/reaction_macros.h"
@@ -69,7 +73,7 @@ void _sea_controllerxreaction_function_1(void* instance_args) {
     force_control.out = self->_lf_force_control.out;
     pos_control.out = self->_lf_pos_control.out;
     _sea_controllerx_out_t* out = &self->_lf_out;
-    #line 98 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Joint_Controllers/SEA_X.lf"
+    #line 100 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Joint_Controllers/SEA_X.lf"
     float RISE_CAP = 1;
     float FALL_CAP = 20;
     if (self->fsm_state) {
@@ -90,7 +94,7 @@ void _sea_controllerxreaction_function_1(void* instance_args) {
       lf_set(out, force_control.out->value);
       self->last_out = 0;
     }
-#line 94 "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c"
+#line 98 "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c"
 }
 #include "include/api/reaction_macros_undef.h"
 _sea_controllerx_self_t* new__sea_controllerx() {
@@ -151,6 +155,12 @@ _sea_controllerx_self_t* new__sea_controllerx() {
     #ifdef FEDERATED_DECENTRALIZED
     self->_lf__current_pos.intended_tag = (tag_t) { .time = NEVER, .microstep = 0u};
     #endif // FEDERATED_DECENTRALIZED
+    self->_lf__current_pos_reactions[0] = &self->_lf__reaction_0;
+    self->_lf__current_pos.reactions = &self->_lf__current_pos_reactions[0];
+    self->_lf__current_pos.number_of_reactions = 1;
+    #ifdef FEDERATED
+    self->_lf__current_pos.physical_time_of_arrival = NEVER;
+    #endif // FEDERATED
     self->_lf__current_pos.tmplt.type.element_size = sizeof(float);
     self->_lf__sea_pos.last_tag = NEVER_TAG;
     #ifdef FEDERATED_DECENTRALIZED

@@ -2816,144 +2816,144 @@ LOAD /Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin/../lib/gcc/arm-no
                 0x08004400       0x88 CMakeFiles/Main.dir/_main_main.c.obj
                 0x08004400                _main_mainreaction_function_2
  .text._main_mainreaction_function_5
-                0x08004488      0x13c CMakeFiles/Main.dir/_main_main.c.obj
+                0x08004488      0x114 CMakeFiles/Main.dir/_main_main.c.obj
                 0x08004488                _main_mainreaction_function_5
- *fill*         0x080045c4        0x4 
+ *fill*         0x0800459c        0x4 
  .text.new__main_main
-                0x080045c8      0x204 CMakeFiles/Main.dir/_main_main.c.obj
-                0x080045c8                new__main_main
+                0x080045a0      0x204 CMakeFiles/Main.dir/_main_main.c.obj
+                0x080045a0                new__main_main
  .text.get_avg_r
-                0x080047cc       0x48 CMakeFiles/Main.dir/_qdec.c.obj
+                0x080047a4       0x48 CMakeFiles/Main.dir/_qdec.c.obj
  .text._qdecreaction_function_1
-                0x08004814       0x1c CMakeFiles/Main.dir/_qdec.c.obj
-                0x08004814                _qdecreaction_function_1
+                0x080047ec       0x1c CMakeFiles/Main.dir/_qdec.c.obj
+                0x080047ec                _qdecreaction_function_1
  .text.MX_UART3_Init
-                0x08004830       0x34 CMakeFiles/Main.dir/_qdec.c.obj
+                0x08004808       0x34 CMakeFiles/Main.dir/_qdec.c.obj
  .text.MX_ADC1_Init
-                0x08004864       0x6c CMakeFiles/Main.dir/_qdec.c.obj
+                0x0800483c       0x6c CMakeFiles/Main.dir/_qdec.c.obj
  .text._qdecreaction_function_0
-                0x080048d0       0x24 CMakeFiles/Main.dir/_qdec.c.obj
-                0x080048d0                _qdecreaction_function_0
+                0x080048a8       0x24 CMakeFiles/Main.dir/_qdec.c.obj
+                0x080048a8                _qdecreaction_function_0
  .text.get_ticks
-                0x080048f4       0x68 CMakeFiles/Main.dir/_qdec.c.obj
- *fill*         0x0800495c        0x4 
+                0x080048cc       0x68 CMakeFiles/Main.dir/_qdec.c.obj
+ *fill*         0x08004934        0x4 
  .text._qdecreaction_function_2
-                0x08004960      0x34c CMakeFiles/Main.dir/_qdec.c.obj
-                0x08004960                _qdecreaction_function_2
- *fill*         0x08004cac        0x4 
+                0x08004938      0x34c CMakeFiles/Main.dir/_qdec.c.obj
+                0x08004938                _qdecreaction_function_2
+ *fill*         0x08004c84        0x4 
  .text.new__qdec
-                0x08004cb0       0xf0 CMakeFiles/Main.dir/_qdec.c.obj
-                0x08004cb0                new__qdec
+                0x08004c88       0xf0 CMakeFiles/Main.dir/_qdec.c.obj
+                0x08004c88                new__qdec
  .text._motor_driverreaction_function_0
-                0x08004da0       0x52 CMakeFiles/Main.dir/_motor_driver.c.obj
-                0x08004da0                _motor_driverreaction_function_0
+                0x08004d78       0x52 CMakeFiles/Main.dir/_motor_driver.c.obj
+                0x08004d78                _motor_driverreaction_function_0
  .text._motor_driverreaction_function_1
-                0x08004df2       0x2e CMakeFiles/Main.dir/_motor_driver.c.obj
-                0x08004df2                _motor_driverreaction_function_1
+                0x08004dca       0x2e CMakeFiles/Main.dir/_motor_driver.c.obj
+                0x08004dca                _motor_driverreaction_function_1
  .text._motor_driverreaction_function_2
-                0x08004e20       0xf0 CMakeFiles/Main.dir/_motor_driver.c.obj
-                0x08004e20                _motor_driverreaction_function_2
+                0x08004df8       0xf0 CMakeFiles/Main.dir/_motor_driver.c.obj
+                0x08004df8                _motor_driverreaction_function_2
  .text.new__motor_driver
-                0x08004f10      0x1f0 CMakeFiles/Main.dir/_motor_driver.c.obj
-                0x08004f10                new__motor_driver
+                0x08004ee8      0x1f0 CMakeFiles/Main.dir/_motor_driver.c.obj
+                0x08004ee8                new__motor_driver
  .text.MX_TIM8_Init
-                0x08005100       0xe4 CMakeFiles/Main.dir/_stepper.c.obj
+                0x080050d8       0xe4 CMakeFiles/Main.dir/_stepper.c.obj
  .text.MX_TIM14_Init
-                0x080051e4       0x74 CMakeFiles/Main.dir/_stepper.c.obj
+                0x080051bc       0x74 CMakeFiles/Main.dir/_stepper.c.obj
  .text._stepperreaction_function_1
-                0x08005258      0x174 CMakeFiles/Main.dir/_stepper.c.obj
-                0x08005258                _stepperreaction_function_1
+                0x08005230      0x174 CMakeFiles/Main.dir/_stepper.c.obj
+                0x08005230                _stepperreaction_function_1
  .text.Stepper_GPIO_Init
-                0x080053cc       0x58 CMakeFiles/Main.dir/_stepper.c.obj
+                0x080053a4       0x58 CMakeFiles/Main.dir/_stepper.c.obj
  .text._stepperreaction_function_0
-                0x08005424       0x28 CMakeFiles/Main.dir/_stepper.c.obj
-                0x08005424                _stepperreaction_function_0
- *fill*         0x0800544c        0x4 
+                0x080053fc       0x28 CMakeFiles/Main.dir/_stepper.c.obj
+                0x080053fc                _stepperreaction_function_0
+ *fill*         0x08005424        0x4 
  .text.new__stepper
-                0x08005450       0xdc CMakeFiles/Main.dir/_stepper.c.obj
-                0x08005450                new__stepper
+                0x08005428       0xdc CMakeFiles/Main.dir/_stepper.c.obj
+                0x08005428                new__stepper
  .text.MX_TIM2_Init
-                0x0800552c       0xd4 CMakeFiles/Main.dir/_usm.c.obj
+                0x08005504       0xd4 CMakeFiles/Main.dir/_usm.c.obj
  .text.MX_TIM3_Init
-                0x08005600       0xc0 CMakeFiles/Main.dir/_usm.c.obj
+                0x080055d8       0xc0 CMakeFiles/Main.dir/_usm.c.obj
  .text.USM_GPIO_Init
-                0x080056c0       0xa4 CMakeFiles/Main.dir/_usm.c.obj
+                0x08005698       0xa4 CMakeFiles/Main.dir/_usm.c.obj
  .text._usmreaction_function_0
-                0x08005764       0x5c CMakeFiles/Main.dir/_usm.c.obj
-                0x08005764                _usmreaction_function_0
+                0x0800573c       0x5c CMakeFiles/Main.dir/_usm.c.obj
+                0x0800573c                _usmreaction_function_0
  .text._usmreaction_function_1
-                0x080057c0      0x1e0 CMakeFiles/Main.dir/_usm.c.obj
-                0x080057c0                _usmreaction_function_1
+                0x08005798      0x1e0 CMakeFiles/Main.dir/_usm.c.obj
+                0x08005798                _usmreaction_function_1
  .text.new__usm
-                0x080059a0      0x104 CMakeFiles/Main.dir/_usm.c.obj
-                0x080059a0                new__usm
+                0x08005978      0x104 CMakeFiles/Main.dir/_usm.c.obj
+                0x08005978                new__usm
  .text._sea_controllerxreaction_function_0
-                0x08005aa4      0x14c CMakeFiles/Main.dir/_sea_controllerx.c.obj
-                0x08005aa4                _sea_controllerxreaction_function_0
+                0x08005a7c      0x14c CMakeFiles/Main.dir/_sea_controllerx.c.obj
+                0x08005a7c                _sea_controllerxreaction_function_0
  .text._sea_controllerxreaction_function_1
-                0x08005bf0       0x96 CMakeFiles/Main.dir/_sea_controllerx.c.obj
-                0x08005bf0                _sea_controllerxreaction_function_1
- *fill*         0x08005c86        0x2 
+                0x08005bc8       0x96 CMakeFiles/Main.dir/_sea_controllerx.c.obj
+                0x08005bc8                _sea_controllerxreaction_function_1
+ *fill*         0x08005c5e        0x2 
  .text.new__sea_controllerx
-                0x08005c88      0x114 CMakeFiles/Main.dir/_sea_controllerx.c.obj
-                0x08005c88                new__sea_controllerx
+                0x08005c60      0x124 CMakeFiles/Main.dir/_sea_controllerx.c.obj
+                0x08005c60                new__sea_controllerx
  .text._ffb_controllerreaction_function_0
-                0x08005d9c      0x104 CMakeFiles/Main.dir/_ffb_controller.c.obj
-                0x08005d9c                _ffb_controllerreaction_function_0
+                0x08005d84      0x104 CMakeFiles/Main.dir/_ffb_controller.c.obj
+                0x08005d84                _ffb_controllerreaction_function_0
  .text.new__ffb_controller
-                0x08005ea0       0xc0 CMakeFiles/Main.dir/_ffb_controller.c.obj
-                0x08005ea0                new__ffb_controller
+                0x08005e88       0xc0 CMakeFiles/Main.dir/_ffb_controller.c.obj
+                0x08005e88                new__ffb_controller
  .text._pid_controllerreaction_function_0
-                0x08005f60       0xcc CMakeFiles/Main.dir/_pid_controller.c.obj
-                0x08005f60                _pid_controllerreaction_function_0
- *fill*         0x0800602c        0x4 
+                0x08005f48       0xcc CMakeFiles/Main.dir/_pid_controller.c.obj
+                0x08005f48                _pid_controllerreaction_function_0
+ *fill*         0x08006014        0x4 
  .text.new__pid_controller
-                0x08006030       0xb0 CMakeFiles/Main.dir/_pid_controller.c.obj
-                0x08006030                new__pid_controller
+                0x08006018       0xb0 CMakeFiles/Main.dir/_pid_controller.c.obj
+                0x08006018                new__pid_controller
  .text._sea_controlleryreaction_function_0
-                0x080060e0      0x14c CMakeFiles/Main.dir/_sea_controllery.c.obj
-                0x080060e0                _sea_controlleryreaction_function_0
+                0x080060c8      0x14c CMakeFiles/Main.dir/_sea_controllery.c.obj
+                0x080060c8                _sea_controlleryreaction_function_0
  .text._sea_controlleryreaction_function_1
-                0x0800622c       0x96 CMakeFiles/Main.dir/_sea_controllery.c.obj
-                0x0800622c                _sea_controlleryreaction_function_1
- *fill*         0x080062c2        0x6 
+                0x08006214       0x96 CMakeFiles/Main.dir/_sea_controllery.c.obj
+                0x08006214                _sea_controlleryreaction_function_1
+ *fill*         0x080062aa        0x6 
  .text.new__sea_controllery
-                0x080062c8      0x114 CMakeFiles/Main.dir/_sea_controllery.c.obj
-                0x080062c8                new__sea_controllery
+                0x080062b0      0x114 CMakeFiles/Main.dir/_sea_controllery.c.obj
+                0x080062b0                new__sea_controllery
  .text._homereaction_function_0
-                0x080063dc      0x328 CMakeFiles/Main.dir/_home.c.obj
-                0x080063dc                _homereaction_function_0
- *fill*         0x08006704        0x4 
+                0x080063c4      0x328 CMakeFiles/Main.dir/_home.c.obj
+                0x080063c4                _homereaction_function_0
+ *fill*         0x080066ec        0x4 
  .text.new__home
-                0x08006708       0xb8 CMakeFiles/Main.dir/_home.c.obj
-                0x08006708                new__home
+                0x080066f0       0xb8 CMakeFiles/Main.dir/_home.c.obj
+                0x080066f0                new__home
  .text.Switch_GPIO_Init
-                0x080067c0       0x94 CMakeFiles/Main.dir/_switches.c.obj
+                0x080067a8       0x94 CMakeFiles/Main.dir/_switches.c.obj
  .text._switchesreaction_function_0
-                0x08006854        0x8 CMakeFiles/Main.dir/_switches.c.obj
-                0x08006854                _switchesreaction_function_0
+                0x0800683c        0x8 CMakeFiles/Main.dir/_switches.c.obj
+                0x0800683c                _switchesreaction_function_0
  .text._switchesreaction_function_1
-                0x0800685c       0xf0 CMakeFiles/Main.dir/_switches.c.obj
-                0x0800685c                _switchesreaction_function_1
- *fill*         0x0800694c        0x4 
+                0x08006844       0xf0 CMakeFiles/Main.dir/_switches.c.obj
+                0x08006844                _switchesreaction_function_1
+ *fill*         0x08006934        0x4 
  .text.new__switches
-                0x08006950       0xa4 CMakeFiles/Main.dir/_switches.c.obj
-                0x08006950                new__switches
- .text.main     0x080069f4        0xc CMakeFiles/Main.dir/Main.c.obj
-                0x080069f4                main
+                0x08006938       0xa4 CMakeFiles/Main.dir/_switches.c.obj
+                0x08006938                new__switches
+ .text.main     0x080069dc        0xc CMakeFiles/Main.dir/Main.c.obj
+                0x080069dc                main
  .text.lf_set_default_command_line_options
-                0x08006a00        0x2 CMakeFiles/Main.dir/Main.c.obj
-                0x08006a00                lf_set_default_command_line_options
- *fill*         0x08006a02        0x2 
+                0x080069e8        0x2 CMakeFiles/Main.dir/Main.c.obj
+                0x080069e8                lf_set_default_command_line_options
+ *fill*         0x080069ea        0x2 
  .text.lf_create_environments
-                0x08006a04       0x40 CMakeFiles/Main.dir/Main.c.obj
-                0x08006a04                lf_create_environments
+                0x080069ec       0x40 CMakeFiles/Main.dir/Main.c.obj
+                0x080069ec                lf_create_environments
  .text._lf_get_environments
-                0x08006a44        0xc CMakeFiles/Main.dir/Main.c.obj
-                0x08006a44                _lf_get_environments
+                0x08006a2c        0xc CMakeFiles/Main.dir/Main.c.obj
+                0x08006a2c                _lf_get_environments
  .text._lf_initialize_trigger_objects
-                0x08006a50     0x2ab8 CMakeFiles/Main.dir/Main.c.obj
-                0x08006a50                _lf_initialize_trigger_objects
+                0x08006a38     0x2ad0 CMakeFiles/Main.dir/Main.c.obj
+                0x08006a38                _lf_initialize_trigger_objects
  .text.lf_terminate_execution
                 0x08009508        0x2 CMakeFiles/Main.dir/Main.c.obj
                 0x08009508                lf_terminate_execution

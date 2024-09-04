@@ -128,6 +128,7 @@ typedef struct {
     reaction_t _lf__reaction_0;
     reaction_t _lf__reaction_1;
     trigger_t _lf__current_pos;
+    reaction_t* _lf__current_pos_reactions[1];
     #ifdef FEDERATED
     
     #endif // FEDERATED

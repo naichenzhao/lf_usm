@@ -61,7 +61,7 @@ main reactor {
   =}
 
   timer motor_update(5 ms, 10 ms)
-  timer switch_motor(5 ms, 1500 ms)
+  timer switch_motor(5 ms, 8000 ms)
   state count: int = 1
 
   qdec = new QDEC()            // FPGA-based QDEC Encoders
@@ -83,9 +83,9 @@ main reactor {
   // Used to update Motor target values
   // Reactor for updating motor target positions from manual targets
   reaction(motor_update) -> motors.target_pos {=
-  for (int i=0; i<6; i++) {
-  lf_set(motors.target_pos[i], target_pos[i]);
-      }
+    for (int i=0; i<6; i++) {
+      lf_set(motors.target_pos[i], target_pos[i]);  
+    }
   =}
   // Initial homing state for when we want home all of the joints
   initial mode HOME {
@@ -138,11 +138,11 @@ main reactor {
       if (self->count == 0) {
         self->count = 1;
         // lf_set(motors.target_pos[0], 50);
-        lf_set(motors.target_speed[0], 0);
+        target_pos[0] = 0;
       } else {
         self->count = 0;
         // lf_set(motors.target_pos[0], 0);
-        lf_set(motors.target_speed[0], 50);
+        target_pos[0] = 4;
       }
 
 

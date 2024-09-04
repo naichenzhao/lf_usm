@@ -96,7 +96,6 @@ reactor Motor_Driver(refresh_period: time = 5 ms) {
     }
   =}
   
-
   reaction(trigger) ->
   stepper.set_speed_0, stepper.set_speed_1, usm.set_speed_2, usm.set_speed_3, usm.set_speed_4 {=
     // We use this to set either the speed or position of the motors
