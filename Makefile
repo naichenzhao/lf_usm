@@ -43,7 +43,7 @@ build_test:
 # flash the controller
 #######################################
 just_flash:
-	openocd -f /Users/$(USER)/Documents/openocd/tcl/interface/stlink.cfg -f /Users/$(USER)/Documents/openocd/tcl/target/stm32f4x.cfg -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"
+	openocd -f /Users/$(USER)/openocd/tcl/interface/stlink.cfg -f /Users/$(USER)/openocd/tcl/target/stm32f4x.cfg -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"
 
 flash: build_dev
-	openocd -f /Users/$(USER)/Documents/openocd/tcl/interface/stlink.cfg -f /Users/$(USER)/Documents/openocd/tcl/target/stm32f4x.cfg -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"
+	openocd -f /Users/$(USER)/openocd/tcl/interface/stlink.cfg -f /Users/$(USER)/openocd/tcl/target/stm32f4x.cfg -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"

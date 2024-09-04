@@ -81,7 +81,7 @@ void _motor_driverreaction_function_2(void* instance_args) {
     usm.set_speed_2 = &(self->_lf_usm.set_speed_2);
     usm.set_speed_3 = &(self->_lf_usm.set_speed_3);
     usm.set_speed_4 = &(self->_lf_usm.set_speed_4);
-    #line 118 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf"
+    #line 102 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf"
     // We use this to set either the speed or position of the motors
     // sel is used to determine which --> 0: speed control, 1: position control
     lf_set(usm.set_speed_2, 0);

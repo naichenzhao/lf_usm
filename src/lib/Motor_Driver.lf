@@ -95,22 +95,6 @@ reactor Motor_Driver(refresh_period: time = 5 ms) {
       self->speed_spc[i] = target_speed[i]->value;
     }
   =}
-
-// reaction(target_pos){=
-//   lf_set(control_x.target_pos, target_pos[i]->value);
-//   lf_set(control_y.target_pos, target_pos[i]->value);
-//   lf_set(control_z.target_pos, target_pos[i]->value);
-//   lf_set(control_r.target_pos, target_pos[i]->value);
-//   lf_set(control_x.target_pos, target_pos[i]->value);
-//   lf_set(control_x.target_pos, target_pos[i]->value);
-
-// //   control_x.target_pos,
-// //   control_y.target_pos,
-// //   control_z.target_pos,
-// //   control_r.target_pos,
-// //   control_a1.target_pos,
-// //   control_a2.target_pos
-// =}
   
 
   reaction(trigger) ->
