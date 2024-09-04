@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/naichenzhao/Desktop/BML/lf_usm/STM_sdk/Core/Src",
+      "program": "/Users/naichenzhao/Desktop/BML/lf_usm/STM_sdk/Core/Src/build/Debug/outDebug"
+    }
+  ]
+}

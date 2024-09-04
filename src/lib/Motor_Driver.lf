@@ -1,0 +1,127 @@
+target C {
+  single-threaded: true,
+  platform: {
+    name: "STM32",
+    board: "F446RE"
+  }
+}
+
+import USM from "Motor_Drivers/USM.lf"
+import Stepper from "Motor_Drivers/Stepper.lf"
+import FFB_Controller from "Joint_Controllers/FFB.lf"
+import PID_Controller from "Joint_Controllers/PID.lf"
+import SEA_ControllerX from "Joint_Controllers/SEA_X.lf"
+import SEA_ControllerY from "Joint_Controllers/SEA_Y.lf"
+
+preamble {=
+  #include <stdio.h>
+  #include "stm32f4xx_hal.h"
+  #include "stm32_startup.h"
+=}
+
+// Import and/or declare reactor classes.
+reactor Motor_Driver(refresh_period: time = 5 ms) {
+  input[6] target_sel: bool
+  input[6] target_speed: float
+  input[6] target_pos: float
+
+  input[6] qdec_current: float
+  input[6] qdec_sea: float
+
+  state sel: bool[6] = {0, 0, 0, 0, 0, 0}
+  state speed_spc: float[6] = {0, 0, 0, 0, 0, 0}
+  state speed_posc: float[6] = {0, 0, 0, 0, 0, 0}
+
+  timer trigger(0, refresh_period)
+
+  stepper = new Stepper()
+  usm = new USM()
+
+  control_x = new SEA_ControllerX()
+  control_y = new SEA_ControllerY()
+
+  control_z = new PID_Controller(Kp=30, Kd=10, Ki=5)
+  control_r = new PID_Controller(Kp=-1, Kd=0.1, Ki=0)
+  control_a1 = new PID_Controller(Kp=10, Kd=3)
+  control_a2 = new PID_Controller(Kp=10, Kd=3)
+
+  // Feed in the target positions
+  target_pos ->
+    control_x.target_pos,
+    control_y.target_pos,
+    control_z.target_pos,
+    control_r.target_pos,
+    control_a1.target_pos,
+    control_a2.target_pos
+
+  // Feed in the current positions
+  qdec_current ->
+    control_x.current_pos,
+    control_y.current_pos,
+    control_z.current_pos,
+    control_r.current_pos,
+    control_a1.current_pos,
+    control_a2.current_pos
+
+  // feed in the SEA positions
+  qdec_sea ->
+    control_x.sea_pos,
+    control_y.sea_pos,
+    control_z.sea_pos,
+    control_r.sea_pos,
+    control_a1.sea_pos,
+    control_a2.sea_pos
+
+  // Read out the positional control speed values
+  reaction(
+      control_x.out,
+      control_y.out,
+      control_z.out,
+      control_r.out,
+      control_a1.out,
+      control_a2.out) {=
+    self -> speed_posc[0] = control_x.out->value;
+    self -> speed_posc[1] = control_y.out->value;
+    self -> speed_posc[2] = control_z.out->value;
+    self -> speed_posc[3] = control_r.out->value;
+    self -> speed_posc[4] = control_a1.out->value;
+    self -> speed_posc[5] = control_a2.out->value;
+  =}
+
+  // Update passthrough values
+  reaction(target_sel, target_speed) {=
+    for(int i=0; i<6; i++) {
+      self->sel[i] = target_sel[i]->value;
+      self->speed_spc[i] = target_speed[i]->value;
+    }
+  =}
+
+// reaction(target_pos){=
+//   lf_set(control_x.target_pos, target_pos[i]->value);
+//   lf_set(control_y.target_pos, target_pos[i]->value);
+//   lf_set(control_z.target_pos, target_pos[i]->value);
+//   lf_set(control_r.target_pos, target_pos[i]->value);
+//   lf_set(control_x.target_pos, target_pos[i]->value);
+//   lf_set(control_x.target_pos, target_pos[i]->value);
+
+// //   control_x.target_pos,
+// //   control_y.target_pos,
+// //   control_z.target_pos,
+// //   control_r.target_pos,
+// //   control_a1.target_pos,
+// //   control_a2.target_pos
+// =}
+  
+
+  reaction(trigger) ->
+  stepper.set_speed_0, stepper.set_speed_1, usm.set_speed_2, usm.set_speed_3, usm.set_speed_4 {=
+    // We use this to set either the speed or position of the motors
+    // sel is used to determine which --> 0: speed control, 1: position control
+    lf_set(usm.set_speed_2, 0);
+    lf_set(usm.set_speed_3, self->sel[0]? self->speed_posc[0]: self->speed_spc[0]);
+    lf_set(usm.set_speed_4, self->sel[1]? self->speed_posc[1]: self->speed_spc[1]);
+
+    lf_set(stepper.set_speed_0, self->sel[2]? self->speed_posc[2]: self->speed_spc[2]);
+    lf_set(stepper.set_speed_1, self->sel[3]? self->speed_posc[3]: self->speed_spc[3]);
+  =}
+}
