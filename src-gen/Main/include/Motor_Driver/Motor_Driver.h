@@ -7,13 +7,13 @@
 #include <stdio.h>
 /*Correspondence: Range: [(12, 2), (13, 18)) -> Range: [(0, 0), (1, 18)) (verbatim=true; src=/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Joint_Controllers/SEA_Y.lf)*/#include "stm32f4xx_hal.h"
 #include <stdio.h>
-/*Correspondence: Range: [(12, 2), (13, 18)) -> Range: [(0, 0), (1, 18)) (verbatim=true; src=/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Joint_Controllers/SEA_X.lf)*/#include "stm32f4xx_hal.h"
-#include <stdio.h>
 /*Correspondence: Range: [(9, 2), (10, 18)) -> Range: [(0, 0), (1, 18)) (verbatim=true; src=/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Drivers/USM.lf)*/#include "stm32f4xx_hal.h"
 #include <stdio.h>
 /*Correspondence: Range: [(16, 2), (18, 26)) -> Range: [(0, 0), (2, 26)) (verbatim=true; src=/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf)*/#include <stdio.h>
 #include "stm32f4xx_hal.h"
 #include "stm32_startup.h"
+/*Correspondence: Range: [(9, 2), (10, 18)) -> Range: [(0, 0), (1, 18)) (verbatim=true; src=/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Joint_Controllers/FFB.lf)*/#include "stm32f4xx_hal.h"
+#include <stdio.h>
 /*Correspondence: Range: [(9, 2), (10, 18)) -> Range: [(0, 0), (1, 18)) (verbatim=true; src=/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Drivers/Stepper.lf)*/#include "stm32f4xx_hal.h"
 #include <stdio.h>
 #endif
@@ -156,7 +156,7 @@ typedef struct {
     lf_port_internal_t _base;
     float value;
 
-} sea_controllerx_current_pos_t;
+} ffb_controller_current_pos_t;
 typedef struct {
     token_type_t type;
     lf_token_t* token;
@@ -165,7 +165,7 @@ typedef struct {
     lf_port_internal_t _base;
     float value;
 
-} sea_controllerx_sea_pos_t;
+} ffb_controller_sea_pos_t;
 typedef struct {
     token_type_t type;
     lf_token_t* token;
@@ -174,7 +174,7 @@ typedef struct {
     lf_port_internal_t _base;
     float value;
 
-} sea_controllerx_target_pos_t;
+} ffb_controller_target_pos_t;
 typedef struct {
     token_type_t type;
     lf_token_t* token;
@@ -183,7 +183,7 @@ typedef struct {
     lf_port_internal_t _base;
     float value;
 
-} sea_controllerx_out_t;
+} ffb_controller_out_t;
 typedef struct {
     token_type_t type;
     lf_token_t* token;

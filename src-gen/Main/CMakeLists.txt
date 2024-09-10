@@ -39,7 +39,7 @@ set(CMAKE_SYSTEM_NAME Stm32)
 
 # Set default values for build parameters
 set(MODAL_REACTORS TRUE CACHE STRING "")
-set(LF_REACTION_GRAPH_BREADTH 11 CACHE STRING "")
+set(LF_REACTION_GRAPH_BREADTH 9 CACHE STRING "")
 set(LF_SINGLE_THREADED 1 CACHE STRING "")
 set(LOG_LEVEL 2 CACHE STRING "")
 set(NUMBER_OF_WATCHDOGS 0 CACHE STRING "")
@@ -81,10 +81,9 @@ add_executable(
     _motor_driver.c
     _stepper.c
     _usm.c
-    _sea_controllerx.c
     _ffb_controller.c
-    _pid_controller.c
     _sea_controllery.c
+    _pid_controller.c
     _home.c
     _switches.c
     Main.c

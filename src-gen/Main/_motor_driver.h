@@ -2,14 +2,12 @@
 #define _MOTOR_DRIVER_H
 #include "include/core/reactor.h"
 #include "_stepper.h"
+#include "_ffb_controller.h"
 #include "_usm.h"
 #include "_sea_controllery.h"
 #include "_pid_controller.h"
-#include "_sea_controllerx.h"
 #ifndef TOP_LEVEL_PREAMBLE_1241897134_H
 #define TOP_LEVEL_PREAMBLE_1241897134_H
-#include "stm32f4xx_hal.h"
-#include <stdio.h>
 #include "stm32f4xx_hal.h"
 #include <stdio.h>
 #include "stm32f4xx_hal.h"
@@ -19,6 +17,8 @@
 #include <stdio.h>
 #include "stm32f4xx_hal.h"
 #include "stm32_startup.h"
+#include "stm32f4xx_hal.h"
+#include <stdio.h>
 #include "stm32f4xx_hal.h"
 #include <stdio.h>
 #endif
@@ -140,7 +140,7 @@ typedef struct {
     // Struct to support efficiently reading sparse inputs.
     lf_sparse_io_record_t* _lf_qdec_sea__sparse;
     struct {
-        _sea_controllerx_out_t* out;
+        _ffb_controller_out_t* out;
         trigger_t out_trigger;
         reaction_t* out_reactions[1];
     } _lf_control_x;

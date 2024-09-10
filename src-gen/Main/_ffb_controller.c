@@ -15,7 +15,7 @@ void _ffb_controllerreaction_function_0(void* instance_args) {
     int sea_pos_width = self->_lf_sea_pos_width; SUPPRESS_UNUSED_WARNING(sea_pos_width);
     _ffb_controller_out_t* out = &self->_lf_out;
     #line 28 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Joint_Controllers/FFB.lf"
-    float UPPER_LIM = 0.02;
+    float UPPER_LIM = 0.01;
     float pid_out;
     
     float error_p = sea_pos->value;

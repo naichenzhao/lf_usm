@@ -92,11 +92,10 @@ CMakeFiles/Main.dir/_main_main.c.obj: \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/include/core/reactor.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_motor_driver.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_stepper.h \
+ /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_ffb_controller.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_usm.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.h \
- /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_ffb_controller.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_pid_controller.h \
- /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_home.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_switches.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_qdec.h \

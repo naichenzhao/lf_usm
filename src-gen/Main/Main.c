@@ -20,7 +20,6 @@ void lf_set_default_command_line_options() {}
 #include "_usm.h"
 #include "_ffb_controller.h"
 #include "_pid_controller.h"
-#include "_sea_controllerx.h"
 #include "_sea_controllery.h"
 #include "_motor_driver.h"
 #include "_switches.h"
@@ -34,7 +33,7 @@ typedef enum {
 environment_t envs[_num_enclaves];
 // 'Create' and initialize the environments in the program
 void lf_create_environments() {
-    environment_init(&envs[main_main],"Main",main_main,_lf_number_of_workers,7,5,0,0,58,1,0,0,NULL);
+    environment_init(&envs[main_main],"Main",main_main,_lf_number_of_workers,7,5,0,0,56,1,0,0,NULL);
 }
 // Update the pointer argument to point to the beginning of the environment array
 // and return the size of that array
@@ -64,12 +63,8 @@ void _lf_initialize_trigger_objects() {
     SUPPRESS_UNUSED_WARNING(main_motors_stepper_self);
     _usm_self_t* main_motors_usm_self[1];
     SUPPRESS_UNUSED_WARNING(main_motors_usm_self);
-    _sea_controllerx_self_t* main_motors_control_x_self[1];
+    _ffb_controller_self_t* main_motors_control_x_self[1];
     SUPPRESS_UNUSED_WARNING(main_motors_control_x_self);
-    _ffb_controller_self_t* main_motors_control_x_force_control_self[1];
-    SUPPRESS_UNUSED_WARNING(main_motors_control_x_force_control_self);
-    _pid_controller_self_t* main_motors_control_x_pos_control_self[1];
-    SUPPRESS_UNUSED_WARNING(main_motors_control_x_pos_control_self);
     _sea_controllery_self_t* main_motors_control_y_self[1];
     SUPPRESS_UNUSED_WARNING(main_motors_control_y_self);
     _ffb_controller_self_t* main_motors_control_y_force_control_self[1];
@@ -282,16 +277,13 @@ void _lf_initialize_trigger_objects() {
         }
         {
             _motor_driver_self_t *self = main_motors_self[0];
-            // ***** Start initializing Main.motors.control_x of class SEA_ControllerX
-            main_motors_control_x_self[0] = new__sea_controllerx();
+            // ***** Start initializing Main.motors.control_x of class FFB_Controller
+            main_motors_control_x_self[0] = new__ffb_controller();
             main_motors_control_x_self[0]->base.environment = &envs[main_main];
             bank_index = 0; SUPPRESS_UNUSED_WARNING(bank_index);
-            main_motors_control_x_self[0]->Kp = 10;
-            main_motors_control_x_self[0]->Ki = 5;
-            main_motors_control_x_self[0]->Kd = -2;
-            main_motors_control_x_self[0]->Ks = 1000;
-            main_motors_control_x_self[0]->SLIM = 0.008;
-            main_motors_control_x_self[0]->SEA_LIM = 0.1;
+            main_motors_control_x_self[0]->Ks = 2000;
+            main_motors_control_x_self[0]->SLIM = 0.003;
+            main_motors_control_x_self[0]->D_LIM = 0.002;
             // width of -2 indicates that it is not a multiport.
             main_motors_control_x_self[0]->_lf_out_width = -2;
             // width of -2 indicates that it is not a multiport.
@@ -301,91 +293,11 @@ void _lf_initialize_trigger_objects() {
             // width of -2 indicates that it is not a multiport.
             main_motors_control_x_self[0]->_lf_target_pos_width = -2;
             { // For scoping
-                static int _initial = 0;
-                main_motors_control_x_self[0]->fsm_state = _initial;
-            } // End scoping.
-            { // For scoping
-                static float _initial = 0;
-                main_motors_control_x_self[0]->last_target = _initial;
-            } // End scoping.
-            { // For scoping
                 static float _initial = 0;
                 main_motors_control_x_self[0]->last_sea = _initial;
             } // End scoping.
-            { // For scoping
-                static float _initial = 0;
-                main_motors_control_x_self[0]->last_out = _initial;
-            } // End scoping.
-            { // For scoping
-                static int _initial = 0;
-                main_motors_control_x_self[0]->cycle_count = _initial;
-            } // End scoping.
-            { // For scoping
-                static bool _initial = true;
-                main_motors_control_x_self[0]->print_data = _initial;
-            } // End scoping.
     
             main_motors_control_x_self[0]->_lf__reaction_0.deadline = NEVER;
-            main_motors_control_x_self[0]->_lf__reaction_1.deadline = NEVER;
-            {
-                _sea_controllerx_self_t *self = main_motors_control_x_self[0];
-                // ***** Start initializing Main.motors.control_x.force_control of class FFB_Controller
-                main_motors_control_x_force_control_self[0] = new__ffb_controller();
-                main_motors_control_x_force_control_self[0]->base.environment = &envs[main_main];
-                bank_index = 0; SUPPRESS_UNUSED_WARNING(bank_index);
-                main_motors_control_x_force_control_self[0]->Ks = main_motors_control_x_self[0]->Ks;
-                main_motors_control_x_force_control_self[0]->SLIM = main_motors_control_x_self[0]->SLIM;
-                main_motors_control_x_force_control_self[0]->D_LIM = 0.002;
-                // width of -2 indicates that it is not a multiport.
-                main_motors_control_x_force_control_self[0]->_lf_out_width = -2;
-                // width of -2 indicates that it is not a multiport.
-                main_motors_control_x_force_control_self[0]->_lf_current_pos_width = -2;
-                // width of -2 indicates that it is not a multiport.
-                main_motors_control_x_force_control_self[0]->_lf_sea_pos_width = -2;
-                // width of -2 indicates that it is not a multiport.
-                main_motors_control_x_force_control_self[0]->_lf_target_pos_width = -2;
-                { // For scoping
-                    static float _initial = 0;
-                    main_motors_control_x_force_control_self[0]->last_sea = _initial;
-                } // End scoping.
-    
-                main_motors_control_x_force_control_self[0]->_lf__reaction_0.deadline = NEVER;
-                //***** End initializing Main.motors.control_x.force_control
-            }
-            {
-                _sea_controllerx_self_t *self = main_motors_control_x_self[0];
-                // ***** Start initializing Main.motors.control_x.pos_control of class PID_Controller
-                main_motors_control_x_pos_control_self[0] = new__pid_controller();
-                main_motors_control_x_pos_control_self[0]->base.environment = &envs[main_main];
-                bank_index = 0; SUPPRESS_UNUSED_WARNING(bank_index);
-                main_motors_control_x_pos_control_self[0]->Kp = main_motors_control_x_self[0]->Kp;
-                main_motors_control_x_pos_control_self[0]->Ki = main_motors_control_x_self[0]->Ki;
-                main_motors_control_x_pos_control_self[0]->Kd = main_motors_control_x_self[0]->Kd;
-                // width of -2 indicates that it is not a multiport.
-                main_motors_control_x_pos_control_self[0]->_lf_out_width = -2;
-                // width of -2 indicates that it is not a multiport.
-                main_motors_control_x_pos_control_self[0]->_lf_current_pos_width = -2;
-                // width of -2 indicates that it is not a multiport.
-                main_motors_control_x_pos_control_self[0]->_lf_sea_pos_width = -2;
-                // width of -2 indicates that it is not a multiport.
-                main_motors_control_x_pos_control_self[0]->_lf_target_pos_width = -2;
-                { // For scoping
-                    static float _initial = 0;
-                    main_motors_control_x_pos_control_self[0]->last_pos = _initial;
-                } // End scoping.
-                main_motors_control_x_pos_control_self[0]->prev_time = 0;
-                { // For scoping
-                    static float _initial = 0.9;
-                    main_motors_control_x_pos_control_self[0]->Kw = _initial;
-                } // End scoping.
-                { // For scoping
-                    static float _initial = 0;
-                    main_motors_control_x_pos_control_self[0]->error_i = _initial;
-                } // End scoping.
-    
-                main_motors_control_x_pos_control_self[0]->_lf__reaction_0.deadline = NEVER;
-                //***** End initializing Main.motors.control_x.pos_control
-            }
             //***** End initializing Main.motors.control_x
         }
         {
@@ -1096,91 +1008,27 @@ void _lf_initialize_trigger_objects() {
             
                 // Total number of outputs (single ports and multiport channels)
                 // produced by reaction_1 of Main.motors.control_x.
-                main_motors_control_x_self[0]->_lf__reaction_0.num_outputs = 0;
-                {
-                    int count = 0; SUPPRESS_UNUSED_WARNING(count);
-                }
-                
-                // ** End initialization for reaction 0 of Main.motors.control_x
-                // Total number of outputs (single ports and multiport channels)
-                // produced by reaction_2 of Main.motors.control_x.
-                main_motors_control_x_self[0]->_lf__reaction_1.num_outputs = 1;
+                main_motors_control_x_self[0]->_lf__reaction_0.num_outputs = 1;
                 // Allocate memory for triggers[] and triggered_sizes[] on the reaction_t
                 // struct for this reaction.
-                main_motors_control_x_self[0]->_lf__reaction_1.triggers = (trigger_t***)lf_allocate(
+                main_motors_control_x_self[0]->_lf__reaction_0.triggers = (trigger_t***)lf_allocate(
                         1, sizeof(trigger_t**),
                         &main_motors_control_x_self[0]->base.allocations);
-                main_motors_control_x_self[0]->_lf__reaction_1.triggered_sizes = (int*)lf_allocate(
+                main_motors_control_x_self[0]->_lf__reaction_0.triggered_sizes = (int*)lf_allocate(
                         1, sizeof(int),
                         &main_motors_control_x_self[0]->base.allocations);
-                main_motors_control_x_self[0]->_lf__reaction_1.output_produced = (bool**)lf_allocate(
+                main_motors_control_x_self[0]->_lf__reaction_0.output_produced = (bool**)lf_allocate(
                         1, sizeof(bool*),
                         &main_motors_control_x_self[0]->base.allocations);
                 {
                     int count = 0; SUPPRESS_UNUSED_WARNING(count);
                     {
-                        main_motors_control_x_self[0]->_lf__reaction_1.output_produced[count++] = &main_motors_control_x_self[0]->_lf_out.is_present;
+                        main_motors_control_x_self[0]->_lf__reaction_0.output_produced[count++] = &main_motors_control_x_self[0]->_lf_out.is_present;
                     }
                 }
                 
-                // ** End initialization for reaction 1 of Main.motors.control_x
+                // ** End initialization for reaction 0 of Main.motors.control_x
             
-                // **** Start deferred initialize for Main.motors.control_x.force_control
-                {
-                
-                    // Total number of outputs (single ports and multiport channels)
-                    // produced by reaction_1 of Main.motors.control_x.force_control.
-                    main_motors_control_x_force_control_self[0]->_lf__reaction_0.num_outputs = 1;
-                    // Allocate memory for triggers[] and triggered_sizes[] on the reaction_t
-                    // struct for this reaction.
-                    main_motors_control_x_force_control_self[0]->_lf__reaction_0.triggers = (trigger_t***)lf_allocate(
-                            1, sizeof(trigger_t**),
-                            &main_motors_control_x_force_control_self[0]->base.allocations);
-                    main_motors_control_x_force_control_self[0]->_lf__reaction_0.triggered_sizes = (int*)lf_allocate(
-                            1, sizeof(int),
-                            &main_motors_control_x_force_control_self[0]->base.allocations);
-                    main_motors_control_x_force_control_self[0]->_lf__reaction_0.output_produced = (bool**)lf_allocate(
-                            1, sizeof(bool*),
-                            &main_motors_control_x_force_control_self[0]->base.allocations);
-                    {
-                        int count = 0; SUPPRESS_UNUSED_WARNING(count);
-                        {
-                            main_motors_control_x_force_control_self[0]->_lf__reaction_0.output_produced[count++] = &main_motors_control_x_force_control_self[0]->_lf_out.is_present;
-                        }
-                    }
-                    
-                    // ** End initialization for reaction 0 of Main.motors.control_x.force_control
-                
-                }
-                // **** End of deferred initialize for Main.motors.control_x.force_control
-                // **** Start deferred initialize for Main.motors.control_x.pos_control
-                {
-                
-                    // Total number of outputs (single ports and multiport channels)
-                    // produced by reaction_1 of Main.motors.control_x.pos_control.
-                    main_motors_control_x_pos_control_self[0]->_lf__reaction_0.num_outputs = 1;
-                    // Allocate memory for triggers[] and triggered_sizes[] on the reaction_t
-                    // struct for this reaction.
-                    main_motors_control_x_pos_control_self[0]->_lf__reaction_0.triggers = (trigger_t***)lf_allocate(
-                            1, sizeof(trigger_t**),
-                            &main_motors_control_x_pos_control_self[0]->base.allocations);
-                    main_motors_control_x_pos_control_self[0]->_lf__reaction_0.triggered_sizes = (int*)lf_allocate(
-                            1, sizeof(int),
-                            &main_motors_control_x_pos_control_self[0]->base.allocations);
-                    main_motors_control_x_pos_control_self[0]->_lf__reaction_0.output_produced = (bool**)lf_allocate(
-                            1, sizeof(bool*),
-                            &main_motors_control_x_pos_control_self[0]->base.allocations);
-                    {
-                        int count = 0; SUPPRESS_UNUSED_WARNING(count);
-                        {
-                            main_motors_control_x_pos_control_self[0]->_lf__reaction_0.output_produced[count++] = &main_motors_control_x_pos_control_self[0]->_lf_out.is_present;
-                        }
-                    }
-                    
-                    // ** End initialization for reaction 0 of Main.motors.control_x.pos_control
-                
-                }
-                // **** End of deferred initialize for Main.motors.control_x.pos_control
             }
             // **** End of deferred initialize for Main.motors.control_x
             // **** Start deferred initialize for Main.motors.control_y
@@ -1475,13 +1323,13 @@ void _lf_initialize_trigger_objects() {
     // **** Start non-nested deferred initialize for Main
     {
         // Set number of destination reactors for port motors.target_pos.
-        // Iterate over range Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)].
+        // Iterate over range Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1)].
         {
             int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
             int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
             int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
             int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_main_self[src_runtime]->_lf_motors.target_pos[src_channel]->_base.num_destinations = 3;
+            main_main_self[src_runtime]->_lf_motors.target_pos[src_channel]->_base.num_destinations = 1;
             main_main_self[src_runtime]->_lf_motors.target_pos[src_channel]->_base.source_reactor = (self_base_t*)main_main_self[src_runtime];
         }
         // Iterate over range Main.motors.target_pos(1,1)->[Main.motors.control_y.target_pos(0,1), Main.motors.control_y.pos_control.target_pos(0,1), Main.motors.control_y.force_control.target_pos(0,1)].
@@ -1589,19 +1437,19 @@ void _lf_initialize_trigger_objects() {
         }
         {
             int triggers_index[1] = { 0 }; // Number of bank members with the reaction.
-            // Iterate over range Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)].
+            // Iterate over range Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1)].
             {
                 int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
                 int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
                 int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
                 int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                // Reaction 1 of Main triggers 3 downstream reactions
+                // Reaction 1 of Main triggers 1 downstream reactions
                 // through port Main.motors.target_pos.
-                main_main_self[src_runtime]->_lf__reaction_1.triggered_sizes[triggers_index[src_runtime]] = 3;
+                main_main_self[src_runtime]->_lf__reaction_1.triggered_sizes[triggers_index[src_runtime]] = 1;
                 // For reaction 1 of Main, allocate an
                 // array of trigger pointers for downstream reactions through port Main.motors.target_pos
                 trigger_t** trigger_array = (trigger_t**)lf_allocate(
-                        3, sizeof(trigger_t*),
+                        1, sizeof(trigger_t*),
                         &main_main_self[src_runtime]->base.allocations); 
                 main_main_self[src_runtime]->_lf__reaction_1.triggers[triggers_index[src_runtime]++] = trigger_array;
             }
@@ -1686,7 +1534,7 @@ void _lf_initialize_trigger_objects() {
                 main_main_self[src_runtime]->_lf__reaction_1.triggers[triggers_index[src_runtime]++] = trigger_array;
             }
             for (int i = 0; i < 1; i++) triggers_index[i] = 0;
-            // Iterate over ranges Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] and Main.motors.control_x.target_pos(0,1).
+            // Iterate over ranges Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1)] and Main.motors.control_x.target_pos(0,1).
             {
                 int src_runtime = 0; // Runtime index.
                 SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -1702,42 +1550,6 @@ void _lf_initialize_trigger_objects() {
                     int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
                     // Point to destination port Main.motors.control_x.target_pos's trigger struct.
                     main_main_self[src_runtime]->_lf__reaction_1.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_control_x_self[dst_runtime]->_lf__target_pos;
-                }
-            }
-            // Iterate over ranges Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] and Main.motors.control_x.pos_control.target_pos(0,1).
-            {
-                int src_runtime = 0; // Runtime index.
-                SUPPRESS_UNUSED_WARNING(src_runtime);
-                int src_channel = 0; // Channel index.
-                SUPPRESS_UNUSED_WARNING(src_channel);
-                int src_bank = 0; // Bank index.
-                SUPPRESS_UNUSED_WARNING(src_bank);
-                // Iterate over range Main.motors.control_x.pos_control.target_pos(0,1).
-                {
-                    int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-                    int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-                    int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-                    int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                    // Point to destination port Main.motors.control_x.pos_control.target_pos's trigger struct.
-                    main_main_self[src_runtime]->_lf__reaction_1.triggers[triggers_index[src_runtime] + src_channel][1] = &main_motors_control_x_pos_control_self[dst_runtime]->_lf__target_pos;
-                }
-            }
-            // Iterate over ranges Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] and Main.motors.control_x.force_control.target_pos(0,1).
-            {
-                int src_runtime = 0; // Runtime index.
-                SUPPRESS_UNUSED_WARNING(src_runtime);
-                int src_channel = 0; // Channel index.
-                SUPPRESS_UNUSED_WARNING(src_channel);
-                int src_bank = 0; // Bank index.
-                SUPPRESS_UNUSED_WARNING(src_bank);
-                // Iterate over range Main.motors.control_x.force_control.target_pos(0,1).
-                {
-                    int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-                    int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-                    int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-                    int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                    // Point to destination port Main.motors.control_x.force_control.target_pos's trigger struct.
-                    main_main_self[src_runtime]->_lf__reaction_1.triggers[triggers_index[src_runtime] + src_channel][2] = &main_motors_control_x_force_control_self[dst_runtime]->_lf__target_pos;
                 }
             }
             // Iterate over ranges Main.motors.target_pos(1,1)->[Main.motors.control_y.target_pos(0,1), Main.motors.control_y.pos_control.target_pos(0,1), Main.motors.control_y.force_control.target_pos(0,1)] and Main.motors.control_y.target_pos(0,1).
@@ -2236,13 +2048,13 @@ void _lf_initialize_trigger_objects() {
         {
         
             // For reference counting, set num_destinations for port Main.qdec.qdec_out.
-            // Iterate over range Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)].
+            // Iterate over range Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.home.current_pos(0,1)].
             {
                 int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
                 int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
                 int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
                 int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                main_qdec_self[src_runtime]->_lf_qdec_out[src_channel]._base.num_destinations = 4;
+                main_qdec_self[src_runtime]->_lf_qdec_out[src_channel]._base.num_destinations = 2;
                 main_qdec_self[src_runtime]->_lf_qdec_out[src_channel]._base.source_reactor = (self_base_t*)main_qdec_self[src_runtime];
             }
             // For reference counting, set num_destinations for port Main.qdec.qdec_out.
@@ -2296,13 +2108,13 @@ void _lf_initialize_trigger_objects() {
                 main_qdec_self[src_runtime]->_lf_qdec_out[src_channel]._base.source_reactor = (self_base_t*)main_qdec_self[src_runtime];
             }
             // For reference counting, set num_destinations for port Main.qdec.sea_out.
-            // Iterate over range Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)].
+            // Iterate over range Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.home.sea_pos(0,1)].
             {
                 int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
                 int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
                 int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
                 int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                main_qdec_self[src_runtime]->_lf_sea_out[src_channel]._base.num_destinations = 3;
+                main_qdec_self[src_runtime]->_lf_sea_out[src_channel]._base.num_destinations = 2;
                 main_qdec_self[src_runtime]->_lf_sea_out[src_channel]._base.source_reactor = (self_base_t*)main_qdec_self[src_runtime];
             }
             // For reference counting, set num_destinations for port Main.qdec.sea_out.
@@ -2341,19 +2153,19 @@ void _lf_initialize_trigger_objects() {
             }
             {
                 int triggers_index[1] = { 0 }; // Number of bank members with the reaction.
-                // Iterate over range Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)].
+                // Iterate over range Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.home.current_pos(0,1)].
                 {
                     int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
                     int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
                     int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
                     int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                    // Reaction 2 of Main.qdec triggers 4 downstream reactions
+                    // Reaction 2 of Main.qdec triggers 2 downstream reactions
                     // through port Main.qdec.qdec_out.
-                    main_qdec_self[src_runtime]->_lf__reaction_2.triggered_sizes[triggers_index[src_runtime]] = 4;
+                    main_qdec_self[src_runtime]->_lf__reaction_2.triggered_sizes[triggers_index[src_runtime]] = 2;
                     // For reaction 2 of Main.qdec, allocate an
                     // array of trigger pointers for downstream reactions through port Main.qdec.qdec_out
                     trigger_t** trigger_array = (trigger_t**)lf_allocate(
-                            4, sizeof(trigger_t*),
+                            2, sizeof(trigger_t*),
                             &main_qdec_self[src_runtime]->base.allocations); 
                     main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime]++] = trigger_array;
                 }
@@ -2437,19 +2249,19 @@ void _lf_initialize_trigger_objects() {
                             &main_qdec_self[src_runtime]->base.allocations); 
                     main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime]++] = trigger_array;
                 }
-                // Iterate over range Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)].
+                // Iterate over range Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.home.sea_pos(0,1)].
                 {
                     int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
                     int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
                     int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
                     int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                    // Reaction 2 of Main.qdec triggers 3 downstream reactions
+                    // Reaction 2 of Main.qdec triggers 2 downstream reactions
                     // through port Main.qdec.sea_out.
-                    main_qdec_self[src_runtime]->_lf__reaction_2.triggered_sizes[triggers_index[src_runtime]] = 3;
+                    main_qdec_self[src_runtime]->_lf__reaction_2.triggered_sizes[triggers_index[src_runtime]] = 2;
                     // For reaction 2 of Main.qdec, allocate an
                     // array of trigger pointers for downstream reactions through port Main.qdec.sea_out
                     trigger_t** trigger_array = (trigger_t**)lf_allocate(
-                            3, sizeof(trigger_t*),
+                            2, sizeof(trigger_t*),
                             &main_qdec_self[src_runtime]->base.allocations); 
                     main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime]++] = trigger_array;
                 }
@@ -2500,7 +2312,7 @@ void _lf_initialize_trigger_objects() {
                     }
                 }
                 for (int i = 0; i < 1; i++) triggers_index[i] = 0;
-                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.current_pos(0,1).
+                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.current_pos(0,1).
                 {
                     int src_runtime = 0; // Runtime index.
                     SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -2518,43 +2330,7 @@ void _lf_initialize_trigger_objects() {
                         main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_control_x_self[dst_runtime]->_lf__current_pos;
                     }
                 }
-                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.pos_control.current_pos(0,1).
-                {
-                    int src_runtime = 0; // Runtime index.
-                    SUPPRESS_UNUSED_WARNING(src_runtime);
-                    int src_channel = 0; // Channel index.
-                    SUPPRESS_UNUSED_WARNING(src_channel);
-                    int src_bank = 0; // Bank index.
-                    SUPPRESS_UNUSED_WARNING(src_bank);
-                    // Iterate over range Main.motors.control_x.pos_control.current_pos(0,1).
-                    {
-                        int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-                        int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-                        int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-                        int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                        // Point to destination port Main.motors.control_x.pos_control.current_pos's trigger struct.
-                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][1] = &main_motors_control_x_pos_control_self[dst_runtime]->_lf__current_pos;
-                    }
-                }
-                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.force_control.current_pos(0,1).
-                {
-                    int src_runtime = 0; // Runtime index.
-                    SUPPRESS_UNUSED_WARNING(src_runtime);
-                    int src_channel = 0; // Channel index.
-                    SUPPRESS_UNUSED_WARNING(src_channel);
-                    int src_bank = 0; // Bank index.
-                    SUPPRESS_UNUSED_WARNING(src_bank);
-                    // Iterate over range Main.motors.control_x.force_control.current_pos(0,1).
-                    {
-                        int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-                        int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-                        int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-                        int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                        // Point to destination port Main.motors.control_x.force_control.current_pos's trigger struct.
-                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][2] = &main_motors_control_x_force_control_self[dst_runtime]->_lf__current_pos;
-                    }
-                }
-                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.home.current_pos(0,1).
+                // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.home.current_pos(0,1)] and Main.home.current_pos(0,1).
                 {
                     int src_runtime = 0; // Runtime index.
                     SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -2569,7 +2345,7 @@ void _lf_initialize_trigger_objects() {
                         int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
                         int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
                         // Point to destination port Main.home.current_pos's trigger struct.
-                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][3] = &main_home_self[dst_runtime]->_lf__current_pos;
+                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][1] = &main_home_self[dst_runtime]->_lf__current_pos;
                     }
                 }
                 // Iterate over ranges Main.qdec.qdec_out(1,1)->[Main.motors.control_y.force_control.current_pos(0,1), Main.motors.control_y.pos_control.current_pos(0,1), Main.home.current_pos(1,1)] and Main.motors.control_y.force_control.current_pos(0,1).
@@ -2771,7 +2547,7 @@ void _lf_initialize_trigger_objects() {
                     }
                 }
                 for (int i = 0; i < 1; i++) triggers_index[i] = 6;
-                // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.motors.control_x.sea_pos(0,1).
+                // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.motors.control_x.sea_pos(0,1).
                 {
                     int src_runtime = 0; // Runtime index.
                     SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -2789,25 +2565,7 @@ void _lf_initialize_trigger_objects() {
                         main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_control_x_self[dst_runtime]->_lf__sea_pos;
                     }
                 }
-                // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.motors.control_x.force_control.sea_pos(0,1).
-                {
-                    int src_runtime = 0; // Runtime index.
-                    SUPPRESS_UNUSED_WARNING(src_runtime);
-                    int src_channel = 0; // Channel index.
-                    SUPPRESS_UNUSED_WARNING(src_channel);
-                    int src_bank = 0; // Bank index.
-                    SUPPRESS_UNUSED_WARNING(src_bank);
-                    // Iterate over range Main.motors.control_x.force_control.sea_pos(0,1).
-                    {
-                        int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-                        int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-                        int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-                        int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                        // Point to destination port Main.motors.control_x.force_control.sea_pos's trigger struct.
-                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][1] = &main_motors_control_x_force_control_self[dst_runtime]->_lf__sea_pos;
-                    }
-                }
-                // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.home.sea_pos(0,1).
+                // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.home.sea_pos(0,1).
                 {
                     int src_runtime = 0; // Runtime index.
                     SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -2822,7 +2580,7 @@ void _lf_initialize_trigger_objects() {
                         int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
                         int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
                         // Point to destination port Main.home.sea_pos's trigger struct.
-                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][2] = &main_home_self[dst_runtime]->_lf__sea_pos;
+                        main_qdec_self[src_runtime]->_lf__reaction_2.triggers[triggers_index[src_runtime] + src_channel][1] = &main_home_self[dst_runtime]->_lf__sea_pos;
                     }
                 }
                 // Iterate over ranges Main.qdec.sea_out(1,1)->[Main.motors.control_y.sea_pos(0,1), Main.motors.control_y.force_control.sea_pos(0,1), Main.home.sea_pos(1,1)] and Main.motors.control_y.sea_pos(0,1).
@@ -3201,15 +2959,15 @@ void _lf_initialize_trigger_objects() {
                         int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
                         int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
                         int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                        // Reaction 1 of Main.motors.control_x triggers 1 downstream reactions
+                        // Reaction 0 of Main.motors.control_x triggers 1 downstream reactions
                         // through port Main.motors.control_x.out.
-                        main_motors_control_x_self[src_runtime]->_lf__reaction_1.triggered_sizes[triggers_index[src_runtime]] = 1;
-                        // For reaction 1 of Main.motors.control_x, allocate an
+                        main_motors_control_x_self[src_runtime]->_lf__reaction_0.triggered_sizes[triggers_index[src_runtime]] = 1;
+                        // For reaction 0 of Main.motors.control_x, allocate an
                         // array of trigger pointers for downstream reactions through port Main.motors.control_x.out
                         trigger_t** trigger_array = (trigger_t**)lf_allocate(
                                 1, sizeof(trigger_t*),
                                 &main_motors_control_x_self[src_runtime]->base.allocations); 
-                        main_motors_control_x_self[src_runtime]->_lf__reaction_1.triggers[triggers_index[src_runtime]++] = trigger_array;
+                        main_motors_control_x_self[src_runtime]->_lf__reaction_0.triggers[triggers_index[src_runtime]++] = trigger_array;
                     }
                     for (int i = 0; i < 1; i++) triggers_index[i] = 0;
                     // Iterate over ranges Main.motors.control_x.out(0,1)->[Main.motors.control_x.out(0,1)] and Main.motors.control_x.out(0,1).
@@ -3228,121 +2986,11 @@ void _lf_initialize_trigger_objects() {
                             int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
                             // Port Main.motors.control_x.out has reactions in its parent's parent.
                             // Point to the trigger struct for those reactions.
-                            main_motors_control_x_self[src_runtime]->_lf__reaction_1.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_self[dst_runtime]->_lf_control_x.out_trigger;
+                            main_motors_control_x_self[src_runtime]->_lf__reaction_0.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_self[dst_runtime]->_lf_control_x.out_trigger;
                         }
                     }
                 }
             
-                // **** Start non-nested deferred initialize for Main.motors.control_x.force_control
-                {
-                
-                    // For reference counting, set num_destinations for port Main.motors.control_x.force_control.out.
-                    // Iterate over range Main.motors.control_x.force_control.out(0,1)->[Main.motors.control_x.force_control.out(0,1)].
-                    {
-                        int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
-                        int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
-                        int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
-                        int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                        main_motors_control_x_force_control_self[src_runtime]->_lf_out._base.num_destinations = 1;
-                        main_motors_control_x_force_control_self[src_runtime]->_lf_out._base.source_reactor = (self_base_t*)main_motors_control_x_force_control_self[src_runtime];
-                    }
-                    {
-                        int triggers_index[1] = { 0 }; // Number of bank members with the reaction.
-                        // Iterate over range Main.motors.control_x.force_control.out(0,1)->[Main.motors.control_x.force_control.out(0,1)].
-                        {
-                            int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
-                            int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
-                            int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
-                            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                            // Reaction 0 of Main.motors.control_x.force_control triggers 1 downstream reactions
-                            // through port Main.motors.control_x.force_control.out.
-                            main_motors_control_x_force_control_self[src_runtime]->_lf__reaction_0.triggered_sizes[triggers_index[src_runtime]] = 1;
-                            // For reaction 0 of Main.motors.control_x.force_control, allocate an
-                            // array of trigger pointers for downstream reactions through port Main.motors.control_x.force_control.out
-                            trigger_t** trigger_array = (trigger_t**)lf_allocate(
-                                    1, sizeof(trigger_t*),
-                                    &main_motors_control_x_force_control_self[src_runtime]->base.allocations); 
-                            main_motors_control_x_force_control_self[src_runtime]->_lf__reaction_0.triggers[triggers_index[src_runtime]++] = trigger_array;
-                        }
-                        for (int i = 0; i < 1; i++) triggers_index[i] = 0;
-                        // Iterate over ranges Main.motors.control_x.force_control.out(0,1)->[Main.motors.control_x.force_control.out(0,1)] and Main.motors.control_x.force_control.out(0,1).
-                        {
-                            int src_runtime = 0; // Runtime index.
-                            SUPPRESS_UNUSED_WARNING(src_runtime);
-                            int src_channel = 0; // Channel index.
-                            SUPPRESS_UNUSED_WARNING(src_channel);
-                            int src_bank = 0; // Bank index.
-                            SUPPRESS_UNUSED_WARNING(src_bank);
-                            // Iterate over range Main.motors.control_x.force_control.out(0,1).
-                            {
-                                int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-                                int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-                                int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-                                int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                                // Port Main.motors.control_x.force_control.out has reactions in its parent's parent.
-                                // Point to the trigger struct for those reactions.
-                                main_motors_control_x_force_control_self[src_runtime]->_lf__reaction_0.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_control_x_self[dst_runtime]->_lf_force_control.out_trigger;
-                            }
-                        }
-                    }
-                
-                }
-                // **** End of non-nested deferred initialize for Main.motors.control_x.force_control
-                // **** Start non-nested deferred initialize for Main.motors.control_x.pos_control
-                {
-                
-                    // For reference counting, set num_destinations for port Main.motors.control_x.pos_control.out.
-                    // Iterate over range Main.motors.control_x.pos_control.out(0,1)->[Main.motors.control_x.pos_control.out(0,1)].
-                    {
-                        int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
-                        int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
-                        int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
-                        int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                        main_motors_control_x_pos_control_self[src_runtime]->_lf_out._base.num_destinations = 1;
-                        main_motors_control_x_pos_control_self[src_runtime]->_lf_out._base.source_reactor = (self_base_t*)main_motors_control_x_pos_control_self[src_runtime];
-                    }
-                    {
-                        int triggers_index[1] = { 0 }; // Number of bank members with the reaction.
-                        // Iterate over range Main.motors.control_x.pos_control.out(0,1)->[Main.motors.control_x.pos_control.out(0,1)].
-                        {
-                            int src_runtime = 0; SUPPRESS_UNUSED_WARNING(src_runtime); // Runtime index.
-                            int src_channel = 0; SUPPRESS_UNUSED_WARNING(src_channel); // Channel index.
-                            int src_bank = 0; SUPPRESS_UNUSED_WARNING(src_bank); // Bank index.
-                            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                            // Reaction 0 of Main.motors.control_x.pos_control triggers 1 downstream reactions
-                            // through port Main.motors.control_x.pos_control.out.
-                            main_motors_control_x_pos_control_self[src_runtime]->_lf__reaction_0.triggered_sizes[triggers_index[src_runtime]] = 1;
-                            // For reaction 0 of Main.motors.control_x.pos_control, allocate an
-                            // array of trigger pointers for downstream reactions through port Main.motors.control_x.pos_control.out
-                            trigger_t** trigger_array = (trigger_t**)lf_allocate(
-                                    1, sizeof(trigger_t*),
-                                    &main_motors_control_x_pos_control_self[src_runtime]->base.allocations); 
-                            main_motors_control_x_pos_control_self[src_runtime]->_lf__reaction_0.triggers[triggers_index[src_runtime]++] = trigger_array;
-                        }
-                        for (int i = 0; i < 1; i++) triggers_index[i] = 0;
-                        // Iterate over ranges Main.motors.control_x.pos_control.out(0,1)->[Main.motors.control_x.pos_control.out(0,1)] and Main.motors.control_x.pos_control.out(0,1).
-                        {
-                            int src_runtime = 0; // Runtime index.
-                            SUPPRESS_UNUSED_WARNING(src_runtime);
-                            int src_channel = 0; // Channel index.
-                            SUPPRESS_UNUSED_WARNING(src_channel);
-                            int src_bank = 0; // Bank index.
-                            SUPPRESS_UNUSED_WARNING(src_bank);
-                            // Iterate over range Main.motors.control_x.pos_control.out(0,1).
-                            {
-                                int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-                                int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-                                int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-                                int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-                                // Port Main.motors.control_x.pos_control.out has reactions in its parent's parent.
-                                // Point to the trigger struct for those reactions.
-                                main_motors_control_x_pos_control_self[src_runtime]->_lf__reaction_0.triggers[triggers_index[src_runtime] + src_channel][0] = &main_motors_control_x_self[dst_runtime]->_lf_pos_control.out_trigger;
-                            }
-                        }
-                    }
-                
-                }
-                // **** End of non-nested deferred initialize for Main.motors.control_x.pos_control
             }
             // **** End of non-nested deferred initialize for Main.motors.control_x
             // **** Start non-nested deferred initialize for Main.motors.control_y
@@ -3982,8 +3630,8 @@ void _lf_initialize_trigger_objects() {
             main_qdec_self[dst_runtime]->_lf_reset_qdec = (_qdec_reset_qdec_t*)&main_main_self[src_runtime]->_lf_qdec.reset_qdec;
         }
     }
-    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.current_pos(0,1)
-    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.current_pos(0,1).
+    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.current_pos(0,1)
+    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.current_pos(0,1).
     {
         int src_runtime = 0; // Runtime index.
         SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -3997,47 +3645,11 @@ void _lf_initialize_trigger_objects() {
             int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
             int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
             int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_self[dst_runtime]->_lf_current_pos = (_sea_controllerx_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
+            main_motors_control_x_self[dst_runtime]->_lf_current_pos = (_ffb_controller_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
         }
     }
-    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.pos_control.current_pos(0,1)
-    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.pos_control.current_pos(0,1).
-    {
-        int src_runtime = 0; // Runtime index.
-        SUPPRESS_UNUSED_WARNING(src_runtime);
-        int src_channel = 0; // Channel index.
-        SUPPRESS_UNUSED_WARNING(src_channel);
-        int src_bank = 0; // Bank index.
-        SUPPRESS_UNUSED_WARNING(src_bank);
-        // Iterate over range Main.motors.control_x.pos_control.current_pos(0,1).
-        {
-            int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-            int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-            int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_pos_control_self[dst_runtime]->_lf_current_pos = (_pid_controller_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
-        }
-    }
-    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.motors.control_x.force_control.current_pos(0,1)
-    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.motors.control_x.force_control.current_pos(0,1).
-    {
-        int src_runtime = 0; // Runtime index.
-        SUPPRESS_UNUSED_WARNING(src_runtime);
-        int src_channel = 0; // Channel index.
-        SUPPRESS_UNUSED_WARNING(src_channel);
-        int src_bank = 0; // Bank index.
-        SUPPRESS_UNUSED_WARNING(src_bank);
-        // Iterate over range Main.motors.control_x.force_control.current_pos(0,1).
-        {
-            int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-            int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-            int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_force_control_self[dst_runtime]->_lf_current_pos = (_ffb_controller_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
-        }
-    }
-    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.home.current_pos(0,1)
-    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.motors.control_x.pos_control.current_pos(0,1), Main.motors.control_x.force_control.current_pos(0,1), Main.home.current_pos(0,1)] and Main.home.current_pos(0,1).
+    // Connect Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.home.current_pos(0,1)] to port Main.home.current_pos(0,1)
+    // Iterate over ranges Main.qdec.qdec_out(0,1)->[Main.motors.control_x.current_pos(0,1), Main.home.current_pos(0,1)] and Main.home.current_pos(0,1).
     {
         int src_runtime = 0; // Runtime index.
         SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -4252,8 +3864,8 @@ void _lf_initialize_trigger_objects() {
             main_home_self[dst_runtime]->_lf_current_pos[dst_channel] = (_home_current_pos_t*)&main_qdec_self[src_runtime]->_lf_qdec_out[src_channel];
         }
     }
-    // Connect Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] to port Main.motors.control_x.sea_pos(0,1)
-    // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.motors.control_x.sea_pos(0,1).
+    // Connect Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.home.sea_pos(0,1)] to port Main.motors.control_x.sea_pos(0,1)
+    // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.motors.control_x.sea_pos(0,1).
     {
         int src_runtime = 0; // Runtime index.
         SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -4267,29 +3879,11 @@ void _lf_initialize_trigger_objects() {
             int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
             int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
             int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_self[dst_runtime]->_lf_sea_pos = (_sea_controllerx_sea_pos_t*)&main_qdec_self[src_runtime]->_lf_sea_out[src_channel];
+            main_motors_control_x_self[dst_runtime]->_lf_sea_pos = (_ffb_controller_sea_pos_t*)&main_qdec_self[src_runtime]->_lf_sea_out[src_channel];
         }
     }
-    // Connect Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] to port Main.motors.control_x.force_control.sea_pos(0,1)
-    // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.motors.control_x.force_control.sea_pos(0,1).
-    {
-        int src_runtime = 0; // Runtime index.
-        SUPPRESS_UNUSED_WARNING(src_runtime);
-        int src_channel = 0; // Channel index.
-        SUPPRESS_UNUSED_WARNING(src_channel);
-        int src_bank = 0; // Bank index.
-        SUPPRESS_UNUSED_WARNING(src_bank);
-        // Iterate over range Main.motors.control_x.force_control.sea_pos(0,1).
-        {
-            int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-            int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-            int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_force_control_self[dst_runtime]->_lf_sea_pos = (_ffb_controller_sea_pos_t*)&main_qdec_self[src_runtime]->_lf_sea_out[src_channel];
-        }
-    }
-    // Connect Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] to port Main.home.sea_pos(0,1)
-    // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.motors.control_x.force_control.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.home.sea_pos(0,1).
+    // Connect Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.home.sea_pos(0,1)] to port Main.home.sea_pos(0,1)
+    // Iterate over ranges Main.qdec.sea_out(0,1)->[Main.motors.control_x.sea_pos(0,1), Main.home.sea_pos(0,1)] and Main.home.sea_pos(0,1).
     {
         int src_runtime = 0; // Runtime index.
         SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -4508,8 +4102,8 @@ void _lf_initialize_trigger_objects() {
             }
         }
     }
-    // Connect Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] to port Main.motors.control_x.target_pos(0,1)
-    // Iterate over ranges Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] and Main.motors.control_x.target_pos(0,1).
+    // Connect Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1)] to port Main.motors.control_x.target_pos(0,1)
+    // Iterate over ranges Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1)] and Main.motors.control_x.target_pos(0,1).
     {
         int src_runtime = 0; // Runtime index.
         SUPPRESS_UNUSED_WARNING(src_runtime);
@@ -4523,43 +4117,7 @@ void _lf_initialize_trigger_objects() {
             int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
             int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
             int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_self[dst_runtime]->_lf_target_pos = (_sea_controllerx_target_pos_t*)main_main_self[src_runtime]->_lf_motors.target_pos[src_channel];
-        }
-    }
-    // Connect Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] to port Main.motors.control_x.pos_control.target_pos(0,1)
-    // Iterate over ranges Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] and Main.motors.control_x.pos_control.target_pos(0,1).
-    {
-        int src_runtime = 0; // Runtime index.
-        SUPPRESS_UNUSED_WARNING(src_runtime);
-        int src_channel = 0; // Channel index.
-        SUPPRESS_UNUSED_WARNING(src_channel);
-        int src_bank = 0; // Bank index.
-        SUPPRESS_UNUSED_WARNING(src_bank);
-        // Iterate over range Main.motors.control_x.pos_control.target_pos(0,1).
-        {
-            int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-            int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-            int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_pos_control_self[dst_runtime]->_lf_target_pos = (_pid_controller_target_pos_t*)main_main_self[src_runtime]->_lf_motors.target_pos[src_channel];
-        }
-    }
-    // Connect Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] to port Main.motors.control_x.force_control.target_pos(0,1)
-    // Iterate over ranges Main.motors.target_pos(0,1)->[Main.motors.control_x.target_pos(0,1), Main.motors.control_x.pos_control.target_pos(0,1), Main.motors.control_x.force_control.target_pos(0,1)] and Main.motors.control_x.force_control.target_pos(0,1).
-    {
-        int src_runtime = 0; // Runtime index.
-        SUPPRESS_UNUSED_WARNING(src_runtime);
-        int src_channel = 0; // Channel index.
-        SUPPRESS_UNUSED_WARNING(src_channel);
-        int src_bank = 0; // Bank index.
-        SUPPRESS_UNUSED_WARNING(src_bank);
-        // Iterate over range Main.motors.control_x.force_control.target_pos(0,1).
-        {
-            int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-            int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-            int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_force_control_self[dst_runtime]->_lf_target_pos = (_ffb_controller_target_pos_t*)main_main_self[src_runtime]->_lf_motors.target_pos[src_channel];
+            main_motors_control_x_self[dst_runtime]->_lf_target_pos = (_ffb_controller_target_pos_t*)main_main_self[src_runtime]->_lf_motors.target_pos[src_channel];
         }
     }
     // Connect Main.motors.target_pos(1,1)->[Main.motors.control_y.target_pos(0,1), Main.motors.control_y.pos_control.target_pos(0,1), Main.motors.control_y.force_control.target_pos(0,1)] to port Main.motors.control_y.target_pos(0,1)
@@ -4796,45 +4354,7 @@ void _lf_initialize_trigger_objects() {
             int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
             int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
             int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_self[dst_runtime]->_lf_control_x.out = (_sea_controllerx_out_t*)&main_motors_control_x_self[src_runtime]->_lf_out;
-        }
-    }
-    // Connect inputs and outputs for reactor Main.motors.control_x.force_control.
-    // Connect Main.motors.control_x.force_control.out(0,1)->[Main.motors.control_x.force_control.out(0,1)] to port Main.motors.control_x.force_control.out(0,1)
-    // Iterate over ranges Main.motors.control_x.force_control.out(0,1)->[Main.motors.control_x.force_control.out(0,1)] and Main.motors.control_x.force_control.out(0,1).
-    {
-        int src_runtime = 0; // Runtime index.
-        SUPPRESS_UNUSED_WARNING(src_runtime);
-        int src_channel = 0; // Channel index.
-        SUPPRESS_UNUSED_WARNING(src_channel);
-        int src_bank = 0; // Bank index.
-        SUPPRESS_UNUSED_WARNING(src_bank);
-        // Iterate over range Main.motors.control_x.force_control.out(0,1).
-        {
-            int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-            int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-            int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_self[dst_runtime]->_lf_force_control.out = (_ffb_controller_out_t*)&main_motors_control_x_force_control_self[src_runtime]->_lf_out;
-        }
-    }
-    // Connect inputs and outputs for reactor Main.motors.control_x.pos_control.
-    // Connect Main.motors.control_x.pos_control.out(0,1)->[Main.motors.control_x.pos_control.out(0,1)] to port Main.motors.control_x.pos_control.out(0,1)
-    // Iterate over ranges Main.motors.control_x.pos_control.out(0,1)->[Main.motors.control_x.pos_control.out(0,1)] and Main.motors.control_x.pos_control.out(0,1).
-    {
-        int src_runtime = 0; // Runtime index.
-        SUPPRESS_UNUSED_WARNING(src_runtime);
-        int src_channel = 0; // Channel index.
-        SUPPRESS_UNUSED_WARNING(src_channel);
-        int src_bank = 0; // Bank index.
-        SUPPRESS_UNUSED_WARNING(src_bank);
-        // Iterate over range Main.motors.control_x.pos_control.out(0,1).
-        {
-            int dst_runtime = 0; SUPPRESS_UNUSED_WARNING(dst_runtime); // Runtime index.
-            int dst_channel = 0; SUPPRESS_UNUSED_WARNING(dst_channel); // Channel index.
-            int dst_bank = 0; SUPPRESS_UNUSED_WARNING(dst_bank); // Bank index.
-            int range_count = 0; SUPPRESS_UNUSED_WARNING(range_count);
-            main_motors_control_x_self[dst_runtime]->_lf_pos_control.out = (_pid_controller_out_t*)&main_motors_control_x_pos_control_self[src_runtime]->_lf_out;
+            main_motors_self[dst_runtime]->_lf_control_x.out = (_ffb_controller_out_t*)&main_motors_control_x_self[src_runtime]->_lf_out;
         }
     }
     // Connect inputs and outputs for reactor Main.motors.control_y.
@@ -5078,34 +4598,6 @@ void _lf_initialize_trigger_objects() {
         {
         }
         {
-            {
-            }
-            {
-            }
-            {
-                int count = 0; SUPPRESS_UNUSED_WARNING(count);
-                {
-                    // Add port Main.motors.control_x.force_control.out to array of is_present fields.
-                    envs[main_main].is_present_fields[0 + count] = &main_motors_control_x_force_control_self[0]->_lf_out.is_present;
-                    #ifdef FEDERATED_DECENTRALIZED
-                    // Add port Main.motors.control_x.force_control.out to array of intended_tag fields.
-                    envs[main_main]._lf_intended_tag_fields[0 + count] = &main_motors_control_x_force_control_self[0]->_lf_out.intended_tag;
-                    #endif // FEDERATED_DECENTRALIZED
-                    count++;
-                }
-            }
-            {
-                int count = 0; SUPPRESS_UNUSED_WARNING(count);
-                {
-                    // Add port Main.motors.control_x.pos_control.out to array of is_present fields.
-                    envs[main_main].is_present_fields[1 + count] = &main_motors_control_x_pos_control_self[0]->_lf_out.is_present;
-                    #ifdef FEDERATED_DECENTRALIZED
-                    // Add port Main.motors.control_x.pos_control.out to array of intended_tag fields.
-                    envs[main_main]._lf_intended_tag_fields[1 + count] = &main_motors_control_x_pos_control_self[0]->_lf_out.intended_tag;
-                    #endif // FEDERATED_DECENTRALIZED
-                    count++;
-                }
-            }
         }
         {
             {
@@ -5116,10 +4608,10 @@ void _lf_initialize_trigger_objects() {
                 int count = 0; SUPPRESS_UNUSED_WARNING(count);
                 {
                     // Add port Main.motors.control_y.force_control.out to array of is_present fields.
-                    envs[main_main].is_present_fields[2 + count] = &main_motors_control_y_force_control_self[0]->_lf_out.is_present;
+                    envs[main_main].is_present_fields[0 + count] = &main_motors_control_y_force_control_self[0]->_lf_out.is_present;
                     #ifdef FEDERATED_DECENTRALIZED
                     // Add port Main.motors.control_y.force_control.out to array of intended_tag fields.
-                    envs[main_main]._lf_intended_tag_fields[2 + count] = &main_motors_control_y_force_control_self[0]->_lf_out.intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[0 + count] = &main_motors_control_y_force_control_self[0]->_lf_out.intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5128,10 +4620,10 @@ void _lf_initialize_trigger_objects() {
                 int count = 0; SUPPRESS_UNUSED_WARNING(count);
                 {
                     // Add port Main.motors.control_y.pos_control.out to array of is_present fields.
-                    envs[main_main].is_present_fields[3 + count] = &main_motors_control_y_pos_control_self[0]->_lf_out.is_present;
+                    envs[main_main].is_present_fields[1 + count] = &main_motors_control_y_pos_control_self[0]->_lf_out.is_present;
                     #ifdef FEDERATED_DECENTRALIZED
                     // Add port Main.motors.control_y.pos_control.out to array of intended_tag fields.
-                    envs[main_main]._lf_intended_tag_fields[3 + count] = &main_motors_control_y_pos_control_self[0]->_lf_out.intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[1 + count] = &main_motors_control_y_pos_control_self[0]->_lf_out.intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5150,9 +4642,9 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 {
-                    envs[main_main].is_present_fields[4 + count] = &main_motors_self[0]->_lf_stepper.set_speed_0.is_present;
+                    envs[main_main].is_present_fields[2 + count] = &main_motors_self[0]->_lf_stepper.set_speed_0.is_present;
                     #ifdef FEDERATED_DECENTRALIZED
-                    envs[main_main]._lf_intended_tag_fields[4 + count] = &main_motors_self[0]->_lf_stepper.set_speed_0.intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[2 + count] = &main_motors_self[0]->_lf_stepper.set_speed_0.intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5163,9 +4655,9 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 {
-                    envs[main_main].is_present_fields[5 + count] = &main_motors_self[0]->_lf_stepper.set_speed_1.is_present;
+                    envs[main_main].is_present_fields[3 + count] = &main_motors_self[0]->_lf_stepper.set_speed_1.is_present;
                     #ifdef FEDERATED_DECENTRALIZED
-                    envs[main_main]._lf_intended_tag_fields[5 + count] = &main_motors_self[0]->_lf_stepper.set_speed_1.intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[3 + count] = &main_motors_self[0]->_lf_stepper.set_speed_1.intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5176,9 +4668,9 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 {
-                    envs[main_main].is_present_fields[6 + count] = &main_motors_self[0]->_lf_usm.set_speed_2.is_present;
+                    envs[main_main].is_present_fields[4 + count] = &main_motors_self[0]->_lf_usm.set_speed_2.is_present;
                     #ifdef FEDERATED_DECENTRALIZED
-                    envs[main_main]._lf_intended_tag_fields[6 + count] = &main_motors_self[0]->_lf_usm.set_speed_2.intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[4 + count] = &main_motors_self[0]->_lf_usm.set_speed_2.intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5189,9 +4681,9 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 {
-                    envs[main_main].is_present_fields[7 + count] = &main_motors_self[0]->_lf_usm.set_speed_3.is_present;
+                    envs[main_main].is_present_fields[5 + count] = &main_motors_self[0]->_lf_usm.set_speed_3.is_present;
                     #ifdef FEDERATED_DECENTRALIZED
-                    envs[main_main]._lf_intended_tag_fields[7 + count] = &main_motors_self[0]->_lf_usm.set_speed_3.intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[5 + count] = &main_motors_self[0]->_lf_usm.set_speed_3.intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5202,9 +4694,9 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 {
-                    envs[main_main].is_present_fields[8 + count] = &main_motors_self[0]->_lf_usm.set_speed_4.is_present;
+                    envs[main_main].is_present_fields[6 + count] = &main_motors_self[0]->_lf_usm.set_speed_4.is_present;
                     #ifdef FEDERATED_DECENTRALIZED
-                    envs[main_main]._lf_intended_tag_fields[8 + count] = &main_motors_self[0]->_lf_usm.set_speed_4.intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[6 + count] = &main_motors_self[0]->_lf_usm.set_speed_4.intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5214,10 +4706,10 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 // Add port Main.motors.control_x.out to array of is_present fields.
-                envs[main_main].is_present_fields[9 + count] = &main_motors_control_x_self[0]->_lf_out.is_present;
+                envs[main_main].is_present_fields[7 + count] = &main_motors_control_x_self[0]->_lf_out.is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.motors.control_x.out to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[9 + count] = &main_motors_control_x_self[0]->_lf_out.intended_tag;
+                envs[main_main]._lf_intended_tag_fields[7 + count] = &main_motors_control_x_self[0]->_lf_out.intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5226,10 +4718,10 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 // Add port Main.motors.control_y.out to array of is_present fields.
-                envs[main_main].is_present_fields[10 + count] = &main_motors_control_y_self[0]->_lf_out.is_present;
+                envs[main_main].is_present_fields[8 + count] = &main_motors_control_y_self[0]->_lf_out.is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.motors.control_y.out to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[10 + count] = &main_motors_control_y_self[0]->_lf_out.intended_tag;
+                envs[main_main]._lf_intended_tag_fields[8 + count] = &main_motors_control_y_self[0]->_lf_out.intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5238,10 +4730,10 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 // Add port Main.motors.control_z.out to array of is_present fields.
-                envs[main_main].is_present_fields[11 + count] = &main_motors_control_z_self[0]->_lf_out.is_present;
+                envs[main_main].is_present_fields[9 + count] = &main_motors_control_z_self[0]->_lf_out.is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.motors.control_z.out to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[11 + count] = &main_motors_control_z_self[0]->_lf_out.intended_tag;
+                envs[main_main]._lf_intended_tag_fields[9 + count] = &main_motors_control_z_self[0]->_lf_out.intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5250,10 +4742,10 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 // Add port Main.motors.control_r.out to array of is_present fields.
-                envs[main_main].is_present_fields[12 + count] = &main_motors_control_r_self[0]->_lf_out.is_present;
+                envs[main_main].is_present_fields[10 + count] = &main_motors_control_r_self[0]->_lf_out.is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.motors.control_r.out to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[12 + count] = &main_motors_control_r_self[0]->_lf_out.intended_tag;
+                envs[main_main]._lf_intended_tag_fields[10 + count] = &main_motors_control_r_self[0]->_lf_out.intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5262,10 +4754,10 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 // Add port Main.motors.control_a1.out to array of is_present fields.
-                envs[main_main].is_present_fields[13 + count] = &main_motors_control_a1_self[0]->_lf_out.is_present;
+                envs[main_main].is_present_fields[11 + count] = &main_motors_control_a1_self[0]->_lf_out.is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.motors.control_a1.out to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[13 + count] = &main_motors_control_a1_self[0]->_lf_out.intended_tag;
+                envs[main_main]._lf_intended_tag_fields[11 + count] = &main_motors_control_a1_self[0]->_lf_out.intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5274,10 +4766,10 @@ void _lf_initialize_trigger_objects() {
             int count = 0; SUPPRESS_UNUSED_WARNING(count);
             {
                 // Add port Main.motors.control_a2.out to array of is_present fields.
-                envs[main_main].is_present_fields[14 + count] = &main_motors_control_a2_self[0]->_lf_out.is_present;
+                envs[main_main].is_present_fields[12 + count] = &main_motors_control_a2_self[0]->_lf_out.is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.motors.control_a2.out to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[14 + count] = &main_motors_control_a2_self[0]->_lf_out.intended_tag;
+                envs[main_main]._lf_intended_tag_fields[12 + count] = &main_motors_control_a2_self[0]->_lf_out.intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5292,10 +4784,10 @@ void _lf_initialize_trigger_objects() {
                 // Add port Main.home.homing_switches.read to array of is_present fields.
                 // Port Main.home.homing_switches.read is a multiport. Iterate over its channels.
                 for (int main_home_homing_switches_read_c = 0; main_home_homing_switches_read_c < 6; main_home_homing_switches_read_c++) {
-                    envs[main_main].is_present_fields[15 + count] = &main_home_homing_switches_self[0]->_lf_read[main_home_homing_switches_read_c].is_present;
+                    envs[main_main].is_present_fields[13 + count] = &main_home_homing_switches_self[0]->_lf_read[main_home_homing_switches_read_c].is_present;
                     #ifdef FEDERATED_DECENTRALIZED
                     // Add port Main.home.homing_switches.read to array of intended_tag fields.
-                    envs[main_main]._lf_intended_tag_fields[15 + count] = &main_home_homing_switches_self[0]->_lf_read[main_home_homing_switches_read_c].intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[13 + count] = &main_home_homing_switches_self[0]->_lf_read[main_home_homing_switches_read_c].intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5309,9 +4801,9 @@ void _lf_initialize_trigger_objects() {
             {
                 // Port Main.motors.target_pos is a multiport. Iterate over its channels.
                 for (int main_motors_target_pos_c = 0; main_motors_target_pos_c < 6; main_motors_target_pos_c++) {
-                    envs[main_main].is_present_fields[21 + count] = &main_main_self[0]->_lf_motors.target_pos[main_motors_target_pos_c]->is_present;
+                    envs[main_main].is_present_fields[19 + count] = &main_main_self[0]->_lf_motors.target_pos[main_motors_target_pos_c]->is_present;
                     #ifdef FEDERATED_DECENTRALIZED
-                    envs[main_main]._lf_intended_tag_fields[21 + count] = &main_main_self[0]->_lf_motors.target_pos[main_motors_target_pos_c]->intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[19 + count] = &main_main_self[0]->_lf_motors.target_pos[main_motors_target_pos_c]->intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5323,9 +4815,9 @@ void _lf_initialize_trigger_objects() {
         int count = 0; SUPPRESS_UNUSED_WARNING(count);
         {
             {
-                envs[main_main].is_present_fields[27 + count] = &main_main_self[0]->_lf_qdec.reset_qdec.is_present;
+                envs[main_main].is_present_fields[25 + count] = &main_main_self[0]->_lf_qdec.reset_qdec.is_present;
                 #ifdef FEDERATED_DECENTRALIZED
-                envs[main_main]._lf_intended_tag_fields[27 + count] = &main_main_self[0]->_lf_qdec.reset_qdec.intended_tag;
+                envs[main_main]._lf_intended_tag_fields[25 + count] = &main_main_self[0]->_lf_qdec.reset_qdec.intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5338,9 +4830,9 @@ void _lf_initialize_trigger_objects() {
             {
                 // Port Main.motors.target_sel is a multiport. Iterate over its channels.
                 for (int main_motors_target_sel_c = 0; main_motors_target_sel_c < 6; main_motors_target_sel_c++) {
-                    envs[main_main].is_present_fields[28 + count] = &main_main_self[0]->_lf_motors.target_sel[main_motors_target_sel_c]->is_present;
+                    envs[main_main].is_present_fields[26 + count] = &main_main_self[0]->_lf_motors.target_sel[main_motors_target_sel_c]->is_present;
                     #ifdef FEDERATED_DECENTRALIZED
-                    envs[main_main]._lf_intended_tag_fields[28 + count] = &main_main_self[0]->_lf_motors.target_sel[main_motors_target_sel_c]->intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[26 + count] = &main_main_self[0]->_lf_motors.target_sel[main_motors_target_sel_c]->intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5354,9 +4846,9 @@ void _lf_initialize_trigger_objects() {
             {
                 // Port Main.motors.target_speed is a multiport. Iterate over its channels.
                 for (int main_motors_target_speed_c = 0; main_motors_target_speed_c < 6; main_motors_target_speed_c++) {
-                    envs[main_main].is_present_fields[34 + count] = &main_main_self[0]->_lf_motors.target_speed[main_motors_target_speed_c]->is_present;
+                    envs[main_main].is_present_fields[32 + count] = &main_main_self[0]->_lf_motors.target_speed[main_motors_target_speed_c]->is_present;
                     #ifdef FEDERATED_DECENTRALIZED
-                    envs[main_main]._lf_intended_tag_fields[34 + count] = &main_main_self[0]->_lf_motors.target_speed[main_motors_target_speed_c]->intended_tag;
+                    envs[main_main]._lf_intended_tag_fields[32 + count] = &main_main_self[0]->_lf_motors.target_speed[main_motors_target_speed_c]->intended_tag;
                     #endif // FEDERATED_DECENTRALIZED
                     count++;
                 }
@@ -5369,20 +4861,20 @@ void _lf_initialize_trigger_objects() {
             // Add port Main.qdec.qdec_out to array of is_present fields.
             // Port Main.qdec.qdec_out is a multiport. Iterate over its channels.
             for (int main_qdec_qdec_out_c = 0; main_qdec_qdec_out_c < 6; main_qdec_qdec_out_c++) {
-                envs[main_main].is_present_fields[40 + count] = &main_qdec_self[0]->_lf_qdec_out[main_qdec_qdec_out_c].is_present;
+                envs[main_main].is_present_fields[38 + count] = &main_qdec_self[0]->_lf_qdec_out[main_qdec_qdec_out_c].is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.qdec.qdec_out to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[40 + count] = &main_qdec_self[0]->_lf_qdec_out[main_qdec_qdec_out_c].intended_tag;
+                envs[main_main]._lf_intended_tag_fields[38 + count] = &main_qdec_self[0]->_lf_qdec_out[main_qdec_qdec_out_c].intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
             // Add port Main.qdec.sea_out to array of is_present fields.
             // Port Main.qdec.sea_out is a multiport. Iterate over its channels.
             for (int main_qdec_sea_out_c = 0; main_qdec_sea_out_c < 6; main_qdec_sea_out_c++) {
-                envs[main_main].is_present_fields[40 + count] = &main_qdec_self[0]->_lf_sea_out[main_qdec_sea_out_c].is_present;
+                envs[main_main].is_present_fields[38 + count] = &main_qdec_self[0]->_lf_sea_out[main_qdec_sea_out_c].is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.qdec.sea_out to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[40 + count] = &main_qdec_self[0]->_lf_sea_out[main_qdec_sea_out_c].intended_tag;
+                envs[main_main]._lf_intended_tag_fields[38 + count] = &main_qdec_self[0]->_lf_sea_out[main_qdec_sea_out_c].intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5394,10 +4886,10 @@ void _lf_initialize_trigger_objects() {
             // Add port Main.home.motor_speed to array of is_present fields.
             // Port Main.home.motor_speed is a multiport. Iterate over its channels.
             for (int main_home_motor_speed_c = 0; main_home_motor_speed_c < 6; main_home_motor_speed_c++) {
-                envs[main_main].is_present_fields[52 + count] = &main_home_self[0]->_lf_motor_speed[main_home_motor_speed_c].is_present;
+                envs[main_main].is_present_fields[50 + count] = &main_home_self[0]->_lf_motor_speed[main_home_motor_speed_c].is_present;
                 #ifdef FEDERATED_DECENTRALIZED
                 // Add port Main.home.motor_speed to array of intended_tag fields.
-                envs[main_main]._lf_intended_tag_fields[52 + count] = &main_home_self[0]->_lf_motor_speed[main_home_motor_speed_c].intended_tag;
+                envs[main_main]._lf_intended_tag_fields[50 + count] = &main_home_self[0]->_lf_motor_speed[main_home_motor_speed_c].intended_tag;
                 #endif // FEDERATED_DECENTRALIZED
                 count++;
             }
@@ -5478,25 +4970,6 @@ void _lf_initialize_trigger_objects() {
                 // index is the OR of level 5 and 
                 // deadline 9223372036854775807 shifted left 16 bits.
                 main_motors_control_x_self[0]->_lf__reaction_0.index = lf_combine_deadline_and_level(9223372036854775807, 5);
-                // index is the OR of level 6 and 
-                // deadline 9223372036854775807 shifted left 16 bits.
-                main_motors_control_x_self[0]->_lf__reaction_1.index = lf_combine_deadline_and_level(9223372036854775807, 6);
-            
-                // Set reaction priorities for ReactorInstance Main.motors.control_x.force_control
-                {
-                    // index is the OR of level 5 and 
-                    // deadline 9223372036854775807 shifted left 16 bits.
-                    main_motors_control_x_force_control_self[0]->_lf__reaction_0.index = lf_combine_deadline_and_level(9223372036854775807, 5);
-                }
-            
-            
-                // Set reaction priorities for ReactorInstance Main.motors.control_x.pos_control
-                {
-                    // index is the OR of level 5 and 
-                    // deadline 9223372036854775807 shifted left 16 bits.
-                    main_motors_control_x_pos_control_self[0]->_lf__reaction_0.index = lf_combine_deadline_and_level(9223372036854775807, 5);
-                }
-            
             }
         
         

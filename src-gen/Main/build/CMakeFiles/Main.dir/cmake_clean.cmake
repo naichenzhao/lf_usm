@@ -202,8 +202,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/Main.dir/_pid_controller.c.obj.d"
   "CMakeFiles/Main.dir/_qdec.c.obj"
   "CMakeFiles/Main.dir/_qdec.c.obj.d"
-  "CMakeFiles/Main.dir/_sea_controllerx.c.obj"
-  "CMakeFiles/Main.dir/_sea_controllerx.c.obj.d"
   "CMakeFiles/Main.dir/_sea_controllery.c.obj"
   "CMakeFiles/Main.dir/_sea_controllery.c.obj.d"
   "CMakeFiles/Main.dir/_stepper.c.obj"

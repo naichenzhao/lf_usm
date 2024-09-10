@@ -37,7 +37,8 @@ reactor Motor_Driver(refresh_period: time = 5 ms) {
   stepper = new Stepper()
   usm = new USM()
 
-  control_x = new SEA_ControllerX()
+  // control_x = new SEA_ControllerX()
+  control_x = new FFB_Controller()
   control_y = new SEA_ControllerY()
 
   control_z = new PID_Controller(Kp=30, Kd=10, Ki=5)

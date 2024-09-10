@@ -1482,24 +1482,10 @@ CMakeFiles/Main.dir/_usm.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Main.dir/_usm.c.s"
 	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_usm.c -o CMakeFiles/Main.dir/_usm.c.s
 
-CMakeFiles/Main.dir/_sea_controllerx.c.obj: CMakeFiles/Main.dir/flags.make
-CMakeFiles/Main.dir/_sea_controllerx.c.obj: /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c
-CMakeFiles/Main.dir/_sea_controllerx.c.obj: CMakeFiles/Main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_102) "Building C object CMakeFiles/Main.dir/_sea_controllerx.c.obj"
-	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Main.dir/_sea_controllerx.c.obj -MF CMakeFiles/Main.dir/_sea_controllerx.c.obj.d -o CMakeFiles/Main.dir/_sea_controllerx.c.obj -c /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c
-
-CMakeFiles/Main.dir/_sea_controllerx.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Main.dir/_sea_controllerx.c.i"
-	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c > CMakeFiles/Main.dir/_sea_controllerx.c.i
-
-CMakeFiles/Main.dir/_sea_controllerx.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Main.dir/_sea_controllerx.c.s"
-	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c -o CMakeFiles/Main.dir/_sea_controllerx.c.s
-
 CMakeFiles/Main.dir/_ffb_controller.c.obj: CMakeFiles/Main.dir/flags.make
 CMakeFiles/Main.dir/_ffb_controller.c.obj: /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_ffb_controller.c
 CMakeFiles/Main.dir/_ffb_controller.c.obj: CMakeFiles/Main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_103) "Building C object CMakeFiles/Main.dir/_ffb_controller.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_102) "Building C object CMakeFiles/Main.dir/_ffb_controller.c.obj"
 	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Main.dir/_ffb_controller.c.obj -MF CMakeFiles/Main.dir/_ffb_controller.c.obj.d -o CMakeFiles/Main.dir/_ffb_controller.c.obj -c /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_ffb_controller.c
 
 CMakeFiles/Main.dir/_ffb_controller.c.i: cmake_force
@@ -1509,6 +1495,20 @@ CMakeFiles/Main.dir/_ffb_controller.c.i: cmake_force
 CMakeFiles/Main.dir/_ffb_controller.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Main.dir/_ffb_controller.c.s"
 	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_ffb_controller.c -o CMakeFiles/Main.dir/_ffb_controller.c.s
+
+CMakeFiles/Main.dir/_sea_controllery.c.obj: CMakeFiles/Main.dir/flags.make
+CMakeFiles/Main.dir/_sea_controllery.c.obj: /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c
+CMakeFiles/Main.dir/_sea_controllery.c.obj: CMakeFiles/Main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_103) "Building C object CMakeFiles/Main.dir/_sea_controllery.c.obj"
+	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Main.dir/_sea_controllery.c.obj -MF CMakeFiles/Main.dir/_sea_controllery.c.obj.d -o CMakeFiles/Main.dir/_sea_controllery.c.obj -c /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c
+
+CMakeFiles/Main.dir/_sea_controllery.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Main.dir/_sea_controllery.c.i"
+	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c > CMakeFiles/Main.dir/_sea_controllery.c.i
+
+CMakeFiles/Main.dir/_sea_controllery.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Main.dir/_sea_controllery.c.s"
+	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c -o CMakeFiles/Main.dir/_sea_controllery.c.s
 
 CMakeFiles/Main.dir/_pid_controller.c.obj: CMakeFiles/Main.dir/flags.make
 CMakeFiles/Main.dir/_pid_controller.c.obj: /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_pid_controller.c
@@ -1524,24 +1524,10 @@ CMakeFiles/Main.dir/_pid_controller.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Main.dir/_pid_controller.c.s"
 	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_pid_controller.c -o CMakeFiles/Main.dir/_pid_controller.c.s
 
-CMakeFiles/Main.dir/_sea_controllery.c.obj: CMakeFiles/Main.dir/flags.make
-CMakeFiles/Main.dir/_sea_controllery.c.obj: /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c
-CMakeFiles/Main.dir/_sea_controllery.c.obj: CMakeFiles/Main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_105) "Building C object CMakeFiles/Main.dir/_sea_controllery.c.obj"
-	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Main.dir/_sea_controllery.c.obj -MF CMakeFiles/Main.dir/_sea_controllery.c.obj.d -o CMakeFiles/Main.dir/_sea_controllery.c.obj -c /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c
-
-CMakeFiles/Main.dir/_sea_controllery.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Main.dir/_sea_controllery.c.i"
-	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c > CMakeFiles/Main.dir/_sea_controllery.c.i
-
-CMakeFiles/Main.dir/_sea_controllery.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Main.dir/_sea_controllery.c.s"
-	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c -o CMakeFiles/Main.dir/_sea_controllery.c.s
-
 CMakeFiles/Main.dir/_home.c.obj: CMakeFiles/Main.dir/flags.make
 CMakeFiles/Main.dir/_home.c.obj: /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_home.c
 CMakeFiles/Main.dir/_home.c.obj: CMakeFiles/Main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_106) "Building C object CMakeFiles/Main.dir/_home.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_105) "Building C object CMakeFiles/Main.dir/_home.c.obj"
 	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Main.dir/_home.c.obj -MF CMakeFiles/Main.dir/_home.c.obj.d -o CMakeFiles/Main.dir/_home.c.obj -c /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_home.c
 
 CMakeFiles/Main.dir/_home.c.i: cmake_force
@@ -1555,7 +1541,7 @@ CMakeFiles/Main.dir/_home.c.s: cmake_force
 CMakeFiles/Main.dir/_switches.c.obj: CMakeFiles/Main.dir/flags.make
 CMakeFiles/Main.dir/_switches.c.obj: /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_switches.c
 CMakeFiles/Main.dir/_switches.c.obj: CMakeFiles/Main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_107) "Building C object CMakeFiles/Main.dir/_switches.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_106) "Building C object CMakeFiles/Main.dir/_switches.c.obj"
 	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Main.dir/_switches.c.obj -MF CMakeFiles/Main.dir/_switches.c.obj.d -o CMakeFiles/Main.dir/_switches.c.obj -c /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_switches.c
 
 CMakeFiles/Main.dir/_switches.c.i: cmake_force
@@ -1569,7 +1555,7 @@ CMakeFiles/Main.dir/_switches.c.s: cmake_force
 CMakeFiles/Main.dir/Main.c.obj: CMakeFiles/Main.dir/flags.make
 CMakeFiles/Main.dir/Main.c.obj: /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/Main.c
 CMakeFiles/Main.dir/Main.c.obj: CMakeFiles/Main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_108) "Building C object CMakeFiles/Main.dir/Main.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_107) "Building C object CMakeFiles/Main.dir/Main.c.obj"
 	/opt/homebrew/bin/arm-none-eabi-gcc -fdata-sections -ffunction-sections     --specs=nano.specs -Wl,--gc-sections $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Main.dir/Main.c.obj -MF CMakeFiles/Main.dir/Main.c.obj.d -o CMakeFiles/Main.dir/Main.c.obj -c /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/Main.c
 
 CMakeFiles/Main.dir/Main.c.i: cmake_force
@@ -1683,10 +1669,9 @@ Main_OBJECTS = \
 "CMakeFiles/Main.dir/_motor_driver.c.obj" \
 "CMakeFiles/Main.dir/_stepper.c.obj" \
 "CMakeFiles/Main.dir/_usm.c.obj" \
-"CMakeFiles/Main.dir/_sea_controllerx.c.obj" \
 "CMakeFiles/Main.dir/_ffb_controller.c.obj" \
-"CMakeFiles/Main.dir/_pid_controller.c.obj" \
 "CMakeFiles/Main.dir/_sea_controllery.c.obj" \
+"CMakeFiles/Main.dir/_pid_controller.c.obj" \
 "CMakeFiles/Main.dir/_home.c.obj" \
 "CMakeFiles/Main.dir/_switches.c.obj" \
 "CMakeFiles/Main.dir/Main.c.obj"
@@ -1795,10 +1780,9 @@ Main.elf: CMakeFiles/Main.dir/_qdec.c.obj
 Main.elf: CMakeFiles/Main.dir/_motor_driver.c.obj
 Main.elf: CMakeFiles/Main.dir/_stepper.c.obj
 Main.elf: CMakeFiles/Main.dir/_usm.c.obj
-Main.elf: CMakeFiles/Main.dir/_sea_controllerx.c.obj
 Main.elf: CMakeFiles/Main.dir/_ffb_controller.c.obj
-Main.elf: CMakeFiles/Main.dir/_pid_controller.c.obj
 Main.elf: CMakeFiles/Main.dir/_sea_controllery.c.obj
+Main.elf: CMakeFiles/Main.dir/_pid_controller.c.obj
 Main.elf: CMakeFiles/Main.dir/_home.c.obj
 Main.elf: CMakeFiles/Main.dir/_switches.c.obj
 Main.elf: CMakeFiles/Main.dir/Main.c.obj
@@ -1807,7 +1791,7 @@ Main.elf: core/libreactor-c.a
 Main.elf: core/liblf-low-level-platform-impl.a
 Main.elf: core/liblf-platform-impl.a
 Main.elf: CMakeFiles/Main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_109) "Linking C executable Main.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_108) "Linking C executable Main.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Main.dir/link.txt --verbose=$(VERBOSE)
 	arm-none-eabi-size /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/Main.elf
 	arm-none-eabi-objcopy -O ihex /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/build/Main.elf Main.hex

@@ -8,7 +8,7 @@
 void _motor_driverreaction_function_0(void* instance_args) {
     _motor_driver_self_t* self = (_motor_driver_self_t*)instance_args; SUPPRESS_UNUSED_WARNING(self);
     struct control_x {
-        _sea_controllerx_out_t* out;
+        _ffb_controller_out_t* out;
     
     } control_x;
     struct control_y {
@@ -37,7 +37,7 @@ void _motor_driverreaction_function_0(void* instance_args) {
     control_r.out = self->_lf_control_r.out;
     control_a1.out = self->_lf_control_a1.out;
     control_a2.out = self->_lf_control_a2.out;
-    #line 83 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf"
+    #line 84 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf"
     self -> speed_posc[0] = control_x.out->value;
     self -> speed_posc[1] = control_y.out->value;
     self -> speed_posc[2] = control_z.out->value;
@@ -54,7 +54,7 @@ void _motor_driverreaction_function_1(void* instance_args) {
     int target_sel_width = self->_lf_target_sel_width; SUPPRESS_UNUSED_WARNING(target_sel_width);
     _motor_driver_target_speed_t** target_speed = self->_lf_target_speed;
     int target_speed_width = self->_lf_target_speed_width; SUPPRESS_UNUSED_WARNING(target_speed_width);
-    #line 93 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf"
+    #line 94 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf"
     for(int i=0; i<6; i++) {
       self->sel[i] = target_sel[i]->value;
       self->speed_spc[i] = target_speed[i]->value;
@@ -81,7 +81,7 @@ void _motor_driverreaction_function_2(void* instance_args) {
     usm.set_speed_2 = &(self->_lf_usm.set_speed_2);
     usm.set_speed_3 = &(self->_lf_usm.set_speed_3);
     usm.set_speed_4 = &(self->_lf_usm.set_speed_4);
-    #line 101 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf"
+    #line 102 "/Users/naichenzhao/Desktop/BML/lf_usm/src/lib/Motor_Driver.lf"
     // We use this to set either the speed or position of the motors
     // sel is used to determine which --> 0: speed control, 1: position control
     lf_set(usm.set_speed_2, 0);

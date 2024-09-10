@@ -2645,30 +2645,6 @@ _qdec.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/_qdec.c.s
 .PHONY : _qdec.c.s
 
-_sea_controllerx.obj: _sea_controllerx.c.obj
-.PHONY : _sea_controllerx.obj
-
-# target to build an object file
-_sea_controllerx.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/_sea_controllerx.c.obj
-.PHONY : _sea_controllerx.c.obj
-
-_sea_controllerx.i: _sea_controllerx.c.i
-.PHONY : _sea_controllerx.i
-
-# target to preprocess a source file
-_sea_controllerx.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/_sea_controllerx.c.i
-.PHONY : _sea_controllerx.c.i
-
-_sea_controllerx.s: _sea_controllerx.c.s
-.PHONY : _sea_controllerx.s
-
-# target to generate assembly for a file
-_sea_controllerx.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main.dir/build.make CMakeFiles/Main.dir/_sea_controllerx.c.s
-.PHONY : _sea_controllerx.c.s
-
 _sea_controllery.obj: _sea_controllery.c.obj
 .PHONY : _sea_controllery.obj
 
@@ -3109,9 +3085,6 @@ help:
 	@echo "... _qdec.obj"
 	@echo "... _qdec.i"
 	@echo "... _qdec.s"
-	@echo "... _sea_controllerx.obj"
-	@echo "... _sea_controllerx.i"
-	@echo "... _sea_controllerx.s"
 	@echo "... _sea_controllery.obj"
 	@echo "... _sea_controllery.i"
 	@echo "... _sea_controllery.s"

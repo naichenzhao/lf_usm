@@ -95,7 +95,6 @@ CMakeFiles/Main.dir/Main.c.obj: \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_usm.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_ffb_controller.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_pid_controller.h \
- /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_motor_driver.h \
  /Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/../../STM_sdk/Core/Inc/stm32_startup.h \

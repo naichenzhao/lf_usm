@@ -16,7 +16,7 @@ set(CMAKE_ASM_COMPILER_ID "GNU")
 set(CMAKE_TARGET_DEFINITIONS_ASM
   "LF_FILE_SEPARATOR=\"/\""
   "LF_PACKAGE_DIRECTORY=\"/Users/naichenzhao/Desktop/BML/lf_usm\""
-  "LF_REACTION_GRAPH_BREADTH=11"
+  "LF_REACTION_GRAPH_BREADTH=9"
   "LF_SINGLE_THREADED=1"
   "LF_SOURCE_DIRECTORY=\"/Users/naichenzhao/Desktop/BML/lf_usm/src\""
   "LF_SOURCE_GEN_DIRECTORY=\"/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main\""
@@ -170,7 +170,6 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_motor_driver.c" "CMakeFiles/Main.dir/_motor_driver.c.obj" "gcc" "CMakeFiles/Main.dir/_motor_driver.c.obj.d"
   "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_pid_controller.c" "CMakeFiles/Main.dir/_pid_controller.c.obj" "gcc" "CMakeFiles/Main.dir/_pid_controller.c.obj.d"
   "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_qdec.c" "CMakeFiles/Main.dir/_qdec.c.obj" "gcc" "CMakeFiles/Main.dir/_qdec.c.obj.d"
-  "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllerx.c" "CMakeFiles/Main.dir/_sea_controllerx.c.obj" "gcc" "CMakeFiles/Main.dir/_sea_controllerx.c.obj.d"
   "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_sea_controllery.c" "CMakeFiles/Main.dir/_sea_controllery.c.obj" "gcc" "CMakeFiles/Main.dir/_sea_controllery.c.obj.d"
   "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_stepper.c" "CMakeFiles/Main.dir/_stepper.c.obj" "gcc" "CMakeFiles/Main.dir/_stepper.c.obj.d"
   "/Users/naichenzhao/Desktop/BML/lf_usm/src-gen/Main/_switches.c" "CMakeFiles/Main.dir/_switches.c.obj" "gcc" "CMakeFiles/Main.dir/_switches.c.obj.d"
